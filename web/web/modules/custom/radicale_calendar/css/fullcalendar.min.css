@@ -1,0 +1,181 @@
+/* FullCalendar Core Styles */
+.fc {
+  direction: ltr;
+  text-align: left;
+}
+
+.fc table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 1em;
+}
+
+.fc th {
+  text-align: center;
+}
+
+.fc th,
+.fc td {
+  vertical-align: top;
+  padding: 0;
+}
+
+.fc-button {
+  cursor: pointer;
+  display: inline-block;
+  font-size: .875em;
+  line-height: 1.5;
+  padding: .4em .65em;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  border-radius: .25em;
+  background-color: #2c3e50;
+  border-color: #2c3e50;
+  color: #fff;
+}
+
+.fc-button:hover {
+  background-color: #34495e;
+  border-color: #34495e;
+}
+
+.fc-button:focus {
+  box-shadow: 0 0 0 .2rem rgba(44, 62, 80, .25);
+}
+
+.fc-header-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5em;
+}
+
+.fc-toolbar-chunk {
+  display: flex;
+  align-items: center;
+}
+
+.fc-toolbar-chunk > * {
+  margin-left: .75em;
+}
+
+.fc-toolbar-chunk > *:first-child {
+  margin-left: 0;
+}
+
+.fc-title {
+  font-size: 1.75em;
+  margin: 0;
+}
+
+.fc-daygrid-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.fc-daygrid-day {
+  border: 1px solid #ddd;
+  padding: .25em;
+}
+
+.fc-daygrid-day-number {
+  padding: .25em;
+  font-weight: bold;
+}
+
+.fc-event {
+  background-color: #3788d8;
+  border: 1px solid #3788d8;
+  color: #fff;
+  cursor: pointer;
+  font-size: .85em;
+  padding: .25em .5em;
+  margin: .125em 0;
+  border-radius: .25em;
+}
+
+.fc-event:hover {
+  background-color: #2c7cd1;
+  border-color: #2c7cd1;
+}
+
+.fc-event-title {
+  font-weight: bold;
+}
+
+.fc-col-header-cell {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  font-weight: bold;
+  padding: .5em;
+  text-align: center;
+}
+
+.fc-today {
+  background-color: #fff3cd !important;
+}
+
+.fc-daygrid-event {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Time Grid Styles */
+.fc-timegrid-slot {
+  border-bottom: 1px solid #ddd;
+  height: 1.5em;
+}
+
+.fc-timegrid-axis {
+  border-right: 1px solid #ddd;
+  padding: 0 .5em;
+  text-align: right;
+}
+
+.fc-timegrid-slot-label {
+  font-size: .85em;
+  padding: .25em 0;
+}
+
+/* List View Styles */
+.fc-list-table {
+  border: 1px solid #ddd;
+  width: 100%;
+}
+
+.fc-list-day {
+  background-color: #f8f9fa;
+  font-weight: bold;
+  padding: .5em;
+}
+
+.fc-list-event {
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  padding: .5em;
+}
+
+.fc-list-event:hover {
+  background-color: #f8f9fa;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .fc-header-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .fc-toolbar-chunk {
+    justify-content: center;
+    margin-bottom: .5em;
+  }
+  
+  .fc-title {
+    font-size: 1.5em;
+    text-align: center;
+  }
+}

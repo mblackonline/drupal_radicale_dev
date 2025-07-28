@@ -1,0 +1,4 @@
+# See https://devenv.sh/reference/yaml-options/
+
+name: drupal-radicale-calendar
+version: 1.0.0

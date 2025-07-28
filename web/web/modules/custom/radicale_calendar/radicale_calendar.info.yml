@@ -1,0 +1,8 @@
+name: 'Radicale Calendar'
+type: module
+description: 'Integrates with Radicale CalDAV server to display calendar events'
+package: Custom
+version: 1.0.0
+core_version_requirement: ^11
+dependencies:
+  - drupal:system

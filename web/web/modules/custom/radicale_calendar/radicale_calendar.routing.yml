@@ -1,0 +1,39 @@
+radicale_calendar.welcome:
+  path: '/welcome'
+  defaults:
+    _controller: '\Drupal\radicale_calendar\Controller\CalendarController::welcome'
+    _title: 'Welcome to Drupal + Radicale Calendar'
+  requirements:
+    _permission: 'access content'
+  options:
+    _admin_route: FALSE
+
+radicale_calendar.calendar:
+  path: '/calendar'
+  defaults:
+    _controller: '\Drupal\radicale_calendar\Controller\CalendarController::calendar'
+    _title: 'Calendar'
+  requirements:
+    _permission: 'access content'
+  options:
+    _admin_route: FALSE
+
+radicale_calendar.events_api:
+  path: '/calendar/events'
+  defaults:
+    _controller: '\Drupal\radicale_calendar\Controller\CalendarController::eventsApi'
+  requirements:
+    _permission: 'access content'
+  methods: [GET]
+  options:
+    _admin_route: FALSE
+
+radicale_calendar.settings:
+  path: '/admin/config/system/radicale-calendar'
+  defaults:
+    _form: '\Drupal\radicale_calendar\Form\RadicaleCalendarSettingsForm'
+    _title: 'Radicale Calendar Settings'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE

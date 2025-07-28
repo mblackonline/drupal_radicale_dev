@@ -1,0 +1,18 @@
+fullcalendar:
+  css:
+    theme:
+      css/fullcalendar.min.css: {}
+  js:
+    https://cdn.jsdelivr.net/npm/fullcalendar@6.1.18/index.global.min.js: { type: external }
+  dependencies:
+    - core/drupal
+
+radicale_calendar:
+  js:
+    js/radicale-calendar.js: {}
+  css:
+    theme:
+      css/radicale-calendar.css: {}
+  dependencies:
+    - radicale_calendar/fullcalendar
+    - core/drupal

@@ -1,0 +1,6 @@
+radicale_calendar.settings:
+  title: 'Radicale Calendar Settings'
+  description: 'Configure connection to Radicale CalDAV server.'
+  parent: system.admin_config_system
+  route_name: radicale_calendar.settings
+  weight: 100

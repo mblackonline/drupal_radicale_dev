@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Radicale Calendar module hooks.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function radicale_calendar_theme() {
+  return [
+    'radicale_welcome' => [
+      'template' => 'radicale-welcome',
+      'variables' => [],
+    ],
+    'radicale_calendar' => [
+      'template' => 'radicale-calendar',
+      'variables' => [],
+    ],
+  ];
+}

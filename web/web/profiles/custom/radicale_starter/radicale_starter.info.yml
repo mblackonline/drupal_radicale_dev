@@ -1,0 +1,48 @@
+name: 'Radicale Calendar Starter'
+type: profile
+description: 'Drupal installation profile with Radicale CalDAV integration and basic content'
+version: VERSION
+core_version_requirement: ^11
+base profile: standard
+
+dependencies:
+  - drupal:basic_auth
+  - drupal:block
+  - drupal:breakpoint
+  - drupal:ckeditor5
+  - drupal:config
+  - drupal:contact
+  - drupal:contextual
+  - drupal:datetime
+  - drupal:dblog
+  - drupal:dynamic_page_cache
+  - drupal:editor
+  - drupal:field_ui
+  - drupal:file
+  - drupal:filter
+  - drupal:help
+  - drupal:history
+  - drupal:image
+  - drupal:link
+  - drupal:menu_link_content
+  - drupal:menu_ui
+  - drupal:node
+  - drupal:options
+  - drupal:page_cache
+  - drupal:path
+  - drupal:path_alias
+  - drupal:search
+  - drupal:shortcut
+  - drupal:system
+  - drupal:taxonomy
+  - drupal:text
+  - drupal:toolbar
+  - drupal:update
+  - drupal:user
+  - drupal:views
+  - drupal:views_ui
+  - radicale_calendar:radicale_calendar
+
+themes:
+  - olivero
+  - claro
