@@ -7,20 +7,15 @@ A local development environment for **Drupal 11** with integrated **Radicale Cal
 - **Drupal 11** with custom calendar module that subscribes to Radicale
 - **Radicale CalDAV server** as the main source of truth for calendar events
 - **Real-time sync** - Events added via CalDAV appear automatically in Drupal
-- **FullCalendar** interface for beautiful calendar display
+- **FullCalendar** interface for a  nicer looking calendar display
 - **PostgreSQL** database pre-configured for Drupal
 
 ## 📋 Prerequisites
 
 ### Required Software
-- **Operating System**: Linux, macOS, or Windows with WSL2
+- **Operating System**: Linux, macOS, or Windows with WSL2 (NOTE: this guide has only been tested on WSL2 Ubuntu and Linux Mint). 
 - **Git** (to clone this repository)
-- **Nix Package Manager** (installation instructions below)
-
-### System Requirements
-- Minimum 4GB RAM
-- 2GB free disk space
-- Available ports: 5232 (Radicale), 5432 (PostgreSQL), 8000 (Drupal)
+- **Nix Package Manager and devenv ** (installation instructions below)
 
 ## 🚀 Quick Start Guide
 
