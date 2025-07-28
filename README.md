@@ -46,7 +46,7 @@ nix profile add --accept-flake-config github:cachix/devenv/latest
 
 ### 3. Make Scripts Executable (IMPORTANT!)
 ```bash
-cd drupal_radicale_dev && chmod +x setup.sh cleanup.sh
+chmod +x setup.sh cleanup.sh
 ```
 
 ### 4. Run Initial Setup
