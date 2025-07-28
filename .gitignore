@@ -12,6 +12,7 @@ composer.lock
 /web/web/modules/contrib
 /web/web/themes/contrib
 /web/web/profiles/contrib
+/web/web/.gitignore
 
 # Keep custom content
 !/web/web/profiles/custom
