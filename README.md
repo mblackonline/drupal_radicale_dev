@@ -1,6 +1,6 @@
 # Drupal 11 + Radicale Calendar Development Template
 
-A complete development environment for **Drupal 11** with integrated **Radicale CalDAV server** for calendar synchronization. This template provides a working calendar application with real-time sync between Radicale and Drupal.
+A local development environment for **Drupal 11** with integrated **Radicale CalDAV server** for calendar synchronization. This template provides a working calendar application with real-time sync between Radicale and Drupal.
 
 ## 🎯 Features
 
@@ -9,8 +9,6 @@ A complete development environment for **Drupal 11** with integrated **Radicale 
 - **Real-time sync** - Events added via CalDAV appear automatically in Drupal
 - **FullCalendar** interface for beautiful calendar display
 - **PostgreSQL** database pre-configured for Drupal
-- **One-command setup** using Nix and devenv
-- **Portable** - No hardcoded paths, works on any machine
 
 ## 📋 Prerequisites
 
@@ -108,7 +106,7 @@ This starts PostgreSQL, Radicale, and the PHP development server.
 
 #### Mobile Devices (iOS/Android)
 - Add CalDAV account in your device settings
-- Server: `http://[YOUR-COMPUTER-IP]:5232/admin/`
+- Server: `http://[YOUR-COMPUTER-IP]:5232`
 - Username: `admin`
 - Password: (leave empty)
 
@@ -180,7 +178,7 @@ To access Radicale from other devices on your network:
    ```
 3. Use your computer's IP address to connect to Radicale from other devices (e.g., `http://Computer-IP:5232`)
 
-#### To Disable External Access When You Are Done Testing
+#### To Disable External Access To Radicale When You Are Done Testing
 1. Remove the firewall rule:
    ```bash
    sudo ufw delete allow 5232
@@ -188,9 +186,9 @@ To access Radicale from other devices on your network:
 
 ### For WSL2 Users
 
-If using WSL2 and need to access from phones/tablets on your network:
+If using WSL2 and need to access Radicale from phones/tablets on your network:
 
-### Enable External Access
+### Enable External Radicale Access
 1. Get WSL2 IP: `ip addr show | grep eth0`
 2. Get Windows IP: Open CMD and run `ipconfig`
 3. Setup port forwarding (PowerShell as Admin):
@@ -199,7 +197,7 @@ netsh interface portproxy add v4tov4 listenport=5232 listenaddress=0.0.0.0 conne
 New-NetFirewallRule -DisplayName "Radicale CalDAV" -Direction Inbound -Protocol TCP -LocalPort 5232 -Action Allow
 ```
 
-### Disable External Access
+### Disable External Radicale Access
 ```powershell
 netsh interface portproxy delete v4tov4 listenport=5232 listenaddress=0.0.0.0
 Remove-NetFirewallRule -DisplayName "Radicale CalDAV"
@@ -232,9 +230,6 @@ drupal_radicale_dev/
 ```
 
 ## ⚙️ Configuration
-
-### Security Note
-For production use, consider implementing proper authentication for Radicale and securing your database credentials.
 
 ### Radicale Server Settings
 The Radicale server URL is configurable in Drupal:
@@ -296,18 +291,10 @@ devenv processes
 psql -h 127.0.0.1 -p 5432 -U drupaluser -d drupal
 ```
 
-### Composer Memory Issues
-```bash
-COMPOSER_MEMORY_LIMIT=-1 composer install
-```
-
-### Terminal Freezes After Cleanup
-This is normal! Close the terminal window completely and open a new one.
-
 ## 🤝 Contributing
 
 When contributing:
-1. Work in the `calendar-work2` branch or create a new feature branch from this project
+1. Create a new feature branch from this project
 2. Never commit:
    - `.devenv/` directory
    - `web/vendor/`
@@ -326,7 +313,9 @@ When contributing:
 
 ## 📝 License
 
-[Add your license here]
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+Copyright (c) 2025 Matt Black
 
 ---
 
