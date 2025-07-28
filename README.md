@@ -30,7 +30,6 @@ A complete development environment for **Drupal 11** with integrated **Radicale 
 ```bash
 git clone <repository-url>
 cd drupal_radicale_dev
-git checkout calendar-work2  # Use the calendar branch
 ```
 
 ### 2. Install Nix (if not already installed)
