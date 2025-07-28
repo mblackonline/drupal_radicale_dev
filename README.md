@@ -65,28 +65,60 @@ devenv up -d
    - **Port**: 5432
 4. Complete the installation wizard
 
-### 4. Access Points
+## Access
 
-- **Welcome Page**: http://127.0.0.1:8000/welcome
-- **Calendar View**: http://127.0.0.1:8000/calendar
-- **Radicale Web UI**: http://127.0.0.1:5232 (username: `admin`, no password)
+### Local Access (from your development machine)
 
-## Usage
+**Drupal Frontend:**
+- Welcome Page: http://127.0.0.1:8000/welcome
+- Calendar View: http://127.0.0.1:8000/calendar
 
-### How It Works
+**Radicale CalDAV Server:**
+- URL: http://127.0.0.1:5232
+- Username: `admin`
+- Password: (leave empty)
 
-Radicale serves as the main calendar server using the CalDAV protocol. Drupal subscribes to Radicale and displays events through a FullCalendar interface. Events can be added via:
+### External Access (for testing CalDAV clients)
 
-- Radicale web interface at http://127.0.0.1:5232
-- Any CalDAV client (mobile apps, desktop applications)
-- Events automatically sync to Drupal
+To test CalDAV clients from mobile devices or other computers:
 
-### CalDAV Client Configuration
+1. **Get your computer's IP address:**
+   ```bash
+   ip address  # Linux/WSL
+   ipconfig    # Windows CMD
+   ```
 
-**Connection Details:**
-- **Server**: `http://[YOUR-COMPUTER-IP]:5232`
-- **Username**: `admin`
-- **Password**: (leave empty)
+2. **Enable firewall access:**
+   
+   **Linux Mint/Ubuntu:**
+   ```bash
+   sudo ufw allow 5232
+   ```
+   
+   **WSL2 (PowerShell as Admin):**
+   ```powershell
+   # Replace [WSL2-IP] with IP from: ip addr show | grep eth0
+   netsh interface portproxy add v4tov4 listenport=5232 listenaddress=0.0.0.0 connectport=5232 connectaddress=[WSL2-IP]
+   New-NetFirewallRule -DisplayName "Radicale CalDAV" -Direction Inbound -Protocol TCP -LocalPort 5232 -Action Allow
+   ```
+
+3. **Connect from external device:**
+   - Server: `http://[YOUR-COMPUTER-IP]:5232`
+   - Username: `admin`
+   - Password: (leave empty)
+
+4. **Disable external access when done:**
+   
+   **Linux Mint/Ubuntu:**
+   ```bash
+   sudo ufw delete allow 5232
+   ```
+   
+   **WSL2:**
+   ```powershell
+   netsh interface portproxy delete v4tov4 listenport=5232 listenaddress=0.0.0.0
+   Remove-NetFirewallRule -DisplayName "Radicale CalDAV"
+   ```
 
 ### Daily Development Workflow
 
@@ -128,38 +160,6 @@ devenv shell
 cd web && composer install && cd ..
 devenv up -d
 # Reinstall Drupal at http://127.0.0.1:8000
-```
-
-## Network Access
-
-### Linux Mint Users
-
-**Enable external Radicale access:**
-```bash
-sudo ufw allow 5232
-ip address  # Get your computer's IP
-```
-
-**Disable external Radicale access:**
-```bash
-sudo ufw delete allow 5232
-```
-
-### WSL2 Users
-
-**Enable external Radicale access (PowerShell as Admin):**
-```powershell
-# Get WSL2 IP first: ip addr show | grep eth0
-# Get Windows IP: ipconfig
-
-netsh interface portproxy add v4tov4 listenport=5232 listenaddress=0.0.0.0 connectport=5232 connectaddress=[WSL2-IP]
-New-NetFirewallRule -DisplayName "Radicale CalDAV" -Direction Inbound -Protocol TCP -LocalPort 5232 -Action Allow
-```
-
-**Disable external Radicale access:**
-```powershell
-netsh interface portproxy delete v4tov4 listenport=5232 listenaddress=0.0.0.0
-Remove-NetFirewallRule -DisplayName "Radicale CalDAV"
 ```
 
 ## Configuration
