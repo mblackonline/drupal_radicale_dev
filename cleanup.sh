@@ -28,6 +28,10 @@ if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     exit 1
 fi
 
+# Clear any residual input and reset stdin
+sleep 0.5
+exec < /dev/tty
+
 # Detect OS for platform-specific commands
 OS_TYPE=$(uname -s)
 PROJECT_DIR=$(basename "$(pwd)")
@@ -81,6 +85,7 @@ echo "Step 4: Fixing ownership issues..."
 # Fix ownership within project directory only
 if [ -d ".devenv" ]; then
     echo "  - Fixing .devenv ownership..."
+    echo "    (You may be prompted for your sudo password)"
     if [ "$OS_TYPE" = "Linux" ]; then
         sudo chown -R "$(whoami):$(whoami)" .devenv/ 2>/dev/null || true
     else
