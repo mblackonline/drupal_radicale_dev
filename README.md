@@ -193,9 +193,9 @@ To modify defaults before installation, edit:
 ### Database Credentials
 
 PostgreSQL development credentials (hardcoded):
+- **Database**: `drupal`
 - **Username**: `drupaluser`
 - **Password**: `drupalpass`
-- **Database**: `drupal`
 
 **Security Note**: This setup has no authentication on Radicale for easy development. Do not use in production. Change database credentials for any non-development use.
 
@@ -239,7 +239,6 @@ drupal_radicale_dev/
 **Key Directories:**
 - **`.devenv/`** - Devenv state including PostgreSQL data and Radicale storage (git-ignored)
 - **`web/vendor/`** - Composer packages (git-ignored)
-- **`docs/images/`** - Project screenshots and documentation images
 - **`web/web/modules/custom/radicale_calendar/`** - Main integration module
 - **`web/web/profiles/custom/radicale_starter/`** - Installation profile for quick setup
 
