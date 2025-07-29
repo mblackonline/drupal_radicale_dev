@@ -202,20 +202,45 @@ PostgreSQL development credentials (hardcoded):
 
 ```
 drupal_radicale_dev/
-├── devenv.nix              # Nix environment configuration
-├── setup.sh                # Initial setup script
-├── cleanup.sh              # Reset environment script
-├── web/                    # Drupal root
-│   ├── composer.json       # PHP dependencies
-│   ├── web/                # Drupal document root
-│   │   ├── modules/custom/radicale_calendar/  # Custom calendar integration
-│   │   └── profiles/custom/radicale_starter/   # Installation profile
-│   └── vendor/             # Composer packages (git-ignored)
-└── .devenv/                # Devenv state (git-ignored)
-    └── state/
-        ├── postgres/       # Database files
-        └── radicale-data/  # Calendar storage
+├── LICENSE
+├── README.md
+├── cleanup.sh                   # Environment cleanup script
+├── devenv.lock                  # Locked Nix dependencies
+├── devenv.nix                   # Nix environment configuration
+├── devenv.yaml                  # Devenv metadata
+├── docs/                        # Documentation assets
+│   └── images/                  # Screenshots and images
+│       ├── calendar-view.png
+│       ├── radicale-interface.png
+│       └── welcome-page.png
+├── setup.sh                    # Initial setup script
+└── web/                        # Drupal root directory
+    ├── composer.json           # PHP dependencies configuration
+    ├── recipes/                # Drupal recipes
+    └── web/                    # Drupal document root
+        ├── core/               # Drupal core (git-ignored)
+        ├── modules/
+        │   └── custom/
+        │       └── radicale_calendar/  # Custom calendar integration module
+        │           ├── config/
+        │           ├── src/
+        │           └── templates/
+        │               └── radicale-welcome.html.twig
+        ├── profiles/
+        │   └── custom/
+        │       └── radicale_starter/   # Custom installation profile
+        ├── sites/
+        │   └── default/        # Site configuration (git-ignored when populated)
+        └── themes/
+            └── custom/         # Custom themes directory
 ```
+
+**Key Directories:**
+- **`.devenv/`** - Devenv state including PostgreSQL data and Radicale storage (git-ignored)
+- **`web/vendor/`** - Composer packages (git-ignored)
+- **`docs/images/`** - Project screenshots and documentation images
+- **`web/web/modules/custom/radicale_calendar/`** - Main integration module
+- **`web/web/profiles/custom/radicale_starter/`** - Installation profile for quick setup
 
 ## Troubleshooting
 
