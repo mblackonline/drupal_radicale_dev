@@ -143,7 +143,9 @@ devenv up -d
 devenv processes
 
 # Clear Drupal cache
-cd web && ../vendor/bin/drush cr && cd ..
+cd web 
+./vendor/bin/drush cr 
+cd ..
 
 # View logs if needed
 devenv logs postgres
