@@ -252,5 +252,3 @@ When contributing:
 MIT License - Copyright (c) 2025 Matt Black
 
 ---
-
-**Need help?** Open an issue with your operating system, complete error messages, output of `devenv processes`, and steps to reproduce the problem.
