@@ -2,6 +2,17 @@
 
 A local development environment for Drupal 11 with integrated Radicale CalDAV server for calendar synchronization. Events added via CalDAV appear automatically in Drupal with real-time sync.
 
+## Screenshots
+
+**Drupal Welcome Page**
+![Welcome Page](docs/images/welcome-page.png)
+
+**Calendar Interface**
+![Calendar View](docs/images/calendar-view.png)
+
+**Radicale CalDAV Server**
+![Radicale Interface](docs/images/radicale-interface.png)
+
 ## Features
 
 - Drupal 11 with custom calendar module that subscribes to Radicale
