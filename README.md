@@ -72,8 +72,9 @@ devenv up -d
    - **Database name**: drupal
    - **Username**: drupaluser
    - **Password**: drupalpass
-   - **Host**: 127.0.0.1
-   - **Port**: 5432
+   - **Click the "Advanced" drop down** and use the following settings: 
+     - **Host**: 127.0.0.1
+     - **Port**: 5432
 4. Complete the installation wizard
 
 ## Access
