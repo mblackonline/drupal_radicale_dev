@@ -7,7 +7,7 @@ A local development environment for Drupal 11 with integrated Radicale CalDAV se
 **Drupal Welcome Page**
 ![Welcome Page](docs/images/welcome-page.png)
 
-**Calendar Interface**
+**Calendar View**
 ![Calendar View](docs/images/calendar-view.png)
 
 **Radicale CalDAV Server**
