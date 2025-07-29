@@ -5,6 +5,9 @@
 echo "=== Drupal + Radicale Project Setup ==="
 echo "Setting up required directories and permissions..."
 
+# Detect OS for platform-specific commands
+OS_TYPE=$(uname -s)
+
 # Create required directories if they don't exist
 echo "Creating required directories..."
 mkdir -p web/web/sites/default/files
@@ -13,7 +16,16 @@ mkdir -p web/web/sites/default/private
 # Fix ownership if needed (in case of previous sudo usage)
 if [ ! -w web/web/sites/default/files ] || [ ! -w web/web/sites/default ]; then
     echo "Fixing ownership of Drupal directories..."
-    sudo chown -R $(whoami):$(whoami) web/web/sites/default/ 2>/dev/null || true
+    echo "  (You may be prompted for your sudo password)"
+    
+    # Cross-platform chown handling
+    if [ "$OS_TYPE" = "Darwin" ]; then
+        # macOS - use just the username, let the system handle the group
+        sudo chown -R "$(whoami)" web/web/sites/default/ 2>/dev/null || true
+    else
+        # Linux - use user:group format
+        sudo chown -R "$(whoami):$(whoami)" web/web/sites/default/ 2>/dev/null || true
+    fi
 fi
 
 # Set proper permissions
@@ -39,6 +51,6 @@ echo ""
 echo "Next steps:"
 echo "  1. Run: devenv shell"
 echo "  2. Run: cd web && composer install && cd .."
-echo "  3. Run: devenv up -d"
+echo "  3. Run: devenv up -d"  
 echo "  4. Visit: http://127.0.0.1:8000"
 echo "  5. Select 'Radicale Calendar Starter' installation profile"
