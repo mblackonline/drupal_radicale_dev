@@ -200,7 +200,7 @@ class CalendarController extends ControllerBase {
   }
 
   /**
-   * Parse iCalendar date format to ISO 8601.
+   * Parse iCalendar date format to ISO 8601 with proper timezone conversion.
    */
   private function parseICalendarDate($date_string) {
     // Remove any timezone info for now and handle basic format
@@ -208,10 +208,27 @@ class CalendarController extends ControllerBase {
     
     // Handle format: 20250625T180000
     if (preg_match('/^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/', $date_string, $matches)) {
-      return sprintf('%s-%s-%sT%s:%s:%s', 
+      $iso_string = sprintf('%s-%s-%sT%s:%s:%s', 
         $matches[1], $matches[2], $matches[3], 
         $matches[4], $matches[5], $matches[6]
       );
+      
+      try {
+        // Create DateTime object assuming UTC (which is typical for iCalendar data)
+        $utc_date = new \DateTime($iso_string, new \DateTimeZone('UTC'));
+        
+        // Convert to Eastern Time (America/New_York handles daylight saving automatically)
+        $eastern_date = $utc_date->setTimezone(new \DateTimeZone('America/New_York'));
+        
+        // Return in ISO 8601 format for FullCalendar
+        return $eastern_date->format('Y-m-d\TH:i:s');
+      } catch (\Exception $e) {
+        \Drupal::logger('radicale_calendar')->error('Error parsing date @date: @error', [
+          '@date' => $date_string,
+          '@error' => $e->getMessage()
+        ]);
+        return $iso_string; // Fallback to original format
+      }
     }
     
     return $date_string;
