@@ -1,0 +1,13 @@
+name: Calendar Submissions
+type: module
+description: 'Manages calendar event submissions for moderation before adding to Radicale server.'
+core_version_requirement: ^11
+package: Custom
+dependencies:
+  - drupal:node
+  - drupal:user
+  - drupal:field
+  - drupal:options
+  - drupal:datetime
+  - drupal:workflows
+  - drupal:content_moderation

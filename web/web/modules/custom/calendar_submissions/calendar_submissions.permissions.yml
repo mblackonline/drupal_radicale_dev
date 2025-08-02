@@ -1,0 +1,20 @@
+add calendar submissions:
+  title: 'Add calendar submissions'
+  description: 'Create new calendar event submissions.'
+
+view calendar submissions:
+  title: 'View calendar submissions'
+  description: 'View calendar event submissions.'
+
+edit calendar submissions:
+  title: 'Edit calendar submissions'
+  description: 'Edit and moderate calendar event submissions.'
+
+delete calendar submissions:
+  title: 'Delete calendar submissions'
+  description: 'Delete calendar event submissions.'
+
+administer calendar submissions:
+  title: 'Administer calendar submissions'
+  description: 'Full administrative access to calendar submissions.'
+  restrict access: TRUE
