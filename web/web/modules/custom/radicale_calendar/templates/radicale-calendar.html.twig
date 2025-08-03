@@ -6,21 +6,32 @@
     {# Calendar Actions - Navigation Buttons #}
     <div class="calendar-actions">
       {% if logged_in %}
-        <a href="/submit-calendar-event" class="button button--primary">
-          Submit Calendar Event
-        </a>
-        <a href="/my-calendar-submissions" class="button button--secondary">
-          My Submissions
-        </a>
-        {% if user.hasPermission('edit calendar submissions') %}
-          <a href="/admin/content/calendar-submissions" class="button button--admin">
-            Manage Submissions
+        <div class="user-info">
+          <span class="welcome-message">Welcome, {{ user.getDisplayName() }}!</span>
+          <a href="/user/logout" class="logout-link">Logout</a>
+        </div>
+        <div class="action-buttons">
+          <a href="/submit-calendar-event" class="button button--primary">
+            Submit Calendar Event
           </a>
-        {% endif %}
+          <a href="/my-calendar-submissions" class="button button--secondary">
+            My Submissions
+          </a>
+          {% if user.hasPermission('edit calendar submissions') %}
+            <a href="/admin/content/calendar-submissions" class="button button--admin">
+              Manage Submissions
+            </a>
+          {% endif %}
+        </div>
       {% else %}
-        <p class="login-message">
-          <a href="/user/login">Log in</a> to submit calendar events
-        </p>
+        <div class="login-message">
+          <p>
+            <a href="/login?destination=/calendar" class="button button--secondary">Log In</a>
+            <span class="divider">or</span>
+            <a href="/register" class="button button--primary">Create Account</a>
+            to submit calendar events
+          </p>
+        </div>
       {% endif %}
     </div>
   </div>

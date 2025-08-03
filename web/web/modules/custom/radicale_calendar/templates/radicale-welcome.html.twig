@@ -63,10 +63,24 @@
          style="background: #2196F3; color: white; padding: 12px 20px; text-decoration: none; border-radius: 6px; transition: all 0.3s;">
          🔧 Radicale Server
       </a>
-      <a href="/user" 
-         style="background: #607D8B; color: white; padding: 12px 20px; text-decoration: none; border-radius: 6px; transition: all 0.3s;">
-         👤 Admin Panel
-      </a>
+      {% if logged_in %}
+        <span style="background: #e9ecef; color: #333; padding: 12px 20px; border-radius: 6px; margin-right: 10px;">
+          👋 Welcome, {{ user.getDisplayName() }}!
+        </span>
+        <a href="/user/logout" 
+           style="background: #dc3545; color: white; padding: 12px 20px; text-decoration: none; border-radius: 6px; transition: all 0.3s;">
+           🚪 Logout
+        </a>
+      {% else %}
+        <a href="/login?destination=/" 
+           style="background: #007bff; color: white; padding: 12px 20px; text-decoration: none; border-radius: 6px; transition: all 0.3s;">
+           🔑 Login
+        </a>
+        <a href="/register" 
+           style="background: #28a745; color: white; padding: 12px 20px; text-decoration: none; border-radius: 6px; transition: all 0.3s;">
+           👤 Create Account
+        </a>
+      {% endif %}
     </div>
   </div>
 

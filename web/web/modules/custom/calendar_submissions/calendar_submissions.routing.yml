@@ -37,6 +37,22 @@ calendar_submissions.process_queue:
   requirements:
     _permission: 'edit calendar submissions'
 
+calendar_submissions.login:
+  path: '/login'
+  defaults:
+    _form: '\Drupal\calendar_submissions\Form\CustomUserLoginForm'
+    _title: 'Log In'
+  requirements:
+    _user_is_logged_in: 'FALSE'
+
+calendar_submissions.register:
+  path: '/register'
+  defaults:
+    _form: '\Drupal\calendar_submissions\Form\CustomUserRegistrationForm'
+    _title: 'Create Account'
+  requirements:
+    _access: 'TRUE'
+
 calendar_submissions.settings:
   path: '/admin/config/content/calendar-submissions'
   defaults:

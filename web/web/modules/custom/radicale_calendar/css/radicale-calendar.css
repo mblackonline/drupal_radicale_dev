@@ -69,6 +69,40 @@
   opacity: 0.8;
 }
 
+/* User info styling */
+.calendar-actions .user-info {
+  text-align: center;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: #e9ecef;
+  border-radius: 5px;
+}
+
+.calendar-actions .welcome-message {
+  color: #333;
+  font-weight: 500;
+  margin-right: 1rem;
+}
+
+.calendar-actions .logout-link {
+  color: #dc3545;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+.calendar-actions .logout-link:hover {
+  background-color: #dc3545;
+  color: white;
+  text-decoration: none;
+}
+
+.calendar-actions .action-buttons {
+  text-align: center;
+}
+
 /* Calendar Actions Styling */
 .calendar-actions {
   margin: 20px 0;
@@ -125,19 +159,33 @@
 }
 
 .calendar-actions .login-message {
-  font-style: italic;
-  color: #666;
   margin: 0;
 }
 
-.calendar-actions .login-message a {
-  color: #007bff;
-  text-decoration: none;
-  font-weight: 500;
+.calendar-actions .login-message p {
+  margin: 0;
+  color: #666;
 }
 
-.calendar-actions .login-message a:hover {
-  text-decoration: underline;
+.calendar-actions .login-message .divider {
+  margin: 0 10px;
+  color: #999;
+  font-style: normal;
+}
+
+.calendar-actions .login-message a {
+  /* Remove the old link styling for buttons */
+}
+
+.calendar-actions .login-message a.button {
+  /* Ensure button styling overrides link styling */
+  color: white !important;
+  text-decoration: none !important;
+}
+
+.calendar-actions .login-message a.button:hover {
+  color: white !important;
+  text-decoration: none !important;
 }
 
 /* Responsive design for buttons */
