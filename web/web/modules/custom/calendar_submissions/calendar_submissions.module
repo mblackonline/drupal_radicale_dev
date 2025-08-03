@@ -1,0 +1,53 @@
+<?php
+
+/**
+ * @file
+ * Contains calendar_submissions.module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\calendar_submissions\Entity\CalendarSubmissionInterface;
+
+/**
+ * Implements hook_entity_presave().
+ */
+function calendar_submissions_entity_presave(EntityInterface $entity) {
+  // Only act on calendar submission entities.
+  if (!$entity instanceof CalendarSubmissionInterface) {
+    return;
+  }
+
+  // Check if the status changed to 'approved'.
+  if ($entity->hasField('status') && !$entity->isNew()) {
+    $original = $entity->original ?? NULL;
+    $current_status = $entity->get('status')->value;
+    $original_status = $original ? $original->get('status')->value : NULL;
+
+    // If status changed to 'approved', queue for publishing.
+    if ($current_status === 'approved' && $original_status !== 'approved') {
+      // Queue the entity for publishing to Radicale.
+      \Drupal::service('calendar_submissions.queue_manager')->queueForPublishing($entity);
+      
+      // Log the approval.
+      \Drupal::logger('calendar_submissions')->info('Calendar submission @id (@title) approved and queued for publishing.', [
+        '@id' => $entity->id(),
+        '@title' => $entity->getTitle(),
+      ]);
+    }
+  }
+}
+
+/**
+ * Implements hook_cron().
+ */
+function calendar_submissions_cron() {
+  // Process up to 5 queue items per cron run.
+  $queue_manager = \Drupal::service('calendar_submissions.queue_manager');
+  $processed = $queue_manager->processQueue(5);
+  
+  if ($processed > 0) {
+    \Drupal::logger('calendar_submissions')->info('Processed @count calendar submission queue items during cron.', [
+      '@count' => $processed,
+    ]);
+  }
+}

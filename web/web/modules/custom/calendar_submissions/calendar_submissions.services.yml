@@ -1,0 +1,4 @@
+services:
+  calendar_submissions.queue_manager:
+    class: Drupal\calendar_submissions\Service\CalendarSubmissionQueueManager
+    arguments: ['@queue', '@logger.factory']
