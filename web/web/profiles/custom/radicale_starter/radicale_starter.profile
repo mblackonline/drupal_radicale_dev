@@ -43,6 +43,9 @@ function radicale_starter_enable_modules(&$install_state) {
     'radicale_calendar',
     'calendar_submissions'
   ]);
+  
+  // Clear caches to ensure entity definitions are properly loaded
+  drupal_flush_all_caches();
 }
 
 /**

@@ -23,7 +23,7 @@ use Drupal\user\UserInterface;
  *     plural = "@count calendar submissions",
  *   ),
  *   handlers = {
- *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
+ *     "view_builder" = "Drupal\calendar_submissions\Entity\CalendarSubmissionViewBuilder",
  *     "list_builder" = "Drupal\calendar_submissions\Entity\Controller\CalendarSubmissionListBuilder",
  *     "access" = "Drupal\calendar_submissions\Entity\Access\CalendarSubmissionAccessControlHandler",
  *     "form" = {

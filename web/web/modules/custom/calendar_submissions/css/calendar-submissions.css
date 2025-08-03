@@ -1,5 +1,101 @@
 /* Calendar Submissions Styling */
 
+/* Navigation buttons for submission detail pages */
+.calendar-submission-navigation {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navigation-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  margin: 0;
+}
+
+.navigation-buttons .button {
+  margin: 0 !important;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 4px;
+  text-decoration: none !important;
+  display: inline-block;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+  cursor: pointer;
+  line-height: 1.2;
+}
+
+/* Primary button styling */
+.navigation-buttons .button--primary {
+  background-color: #007bff;
+  color: white !important;
+  border-color: #007bff;
+}
+
+.navigation-buttons .button--primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+}
+
+/* Secondary button styling */
+.navigation-buttons .button--secondary {
+  background-color: #6c757d;
+  color: white !important;
+  border-color: #6c757d;
+}
+
+.navigation-buttons .button--secondary:hover {
+  background-color: #545b62;
+  border-color: #545b62;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(108, 117, 125, 0.3);
+}
+
+/* Default button styling */
+.navigation-buttons .button:not(.button--primary):not(.button--secondary) {
+  background-color: #ffffff;
+  color: #007bff !important;
+  border-color: #007bff;
+}
+
+.navigation-buttons .button:not(.button--primary):not(.button--secondary):hover {
+  background-color: #007bff;
+  color: white !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+}
+
+/* Focus states for accessibility */
+.navigation-buttons .button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+@media (max-width: 768px) {
+  .navigation-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .navigation-buttons .button {
+    text-align: center;
+    width: 100%;
+  }
+  
+  .calendar-submission-navigation {
+    padding: 1rem;
+  }
+}
+
 .calendar-submission-header,
 .my-submissions-header {
   margin-bottom: 2rem;
