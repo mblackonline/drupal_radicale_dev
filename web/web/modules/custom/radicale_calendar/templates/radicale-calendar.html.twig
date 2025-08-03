@@ -2,6 +2,27 @@
   <div class="calendar-header">
     <h1>My Calendar</h1>
     <p class="calendar-subtitle">Events from Radicale CalDAV Server</p>
+    
+    {# Calendar Actions - Navigation Buttons #}
+    <div class="calendar-actions">
+      {% if logged_in %}
+        <a href="/submit-calendar-event" class="button button--primary">
+          Submit Calendar Event
+        </a>
+        <a href="/my-calendar-submissions" class="button button--secondary">
+          My Submissions
+        </a>
+        {% if user.hasPermission('edit calendar submissions') %}
+          <a href="/admin/content/calendar-submissions" class="button button--admin">
+            Manage Submissions
+          </a>
+        {% endif %}
+      {% else %}
+        <p class="login-message">
+          <a href="/user/login">Log in</a> to submit calendar events
+        </p>
+      {% endif %}
+    </div>
   </div>
   <div id="radicale-calendar" class="radicale-calendar"></div>
   <div class="calendar-footer">

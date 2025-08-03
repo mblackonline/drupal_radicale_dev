@@ -69,6 +69,86 @@
   opacity: 0.8;
 }
 
+/* Calendar Actions Styling */
+.calendar-actions {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.calendar-actions .button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 0 5px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.calendar-actions .button--primary {
+  background-color: #007bff;
+  color: white;
+  border: 2px solid #007bff;
+}
+
+.calendar-actions .button--primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+  color: white;
+  text-decoration: none;
+}
+
+.calendar-actions .button--secondary {
+  background-color: #6c757d;
+  color: white;
+  border: 2px solid #6c757d;
+}
+
+.calendar-actions .button--secondary:hover {
+  background-color: #545b62;
+  border-color: #545b62;
+  color: white;
+  text-decoration: none;
+}
+
+.calendar-actions .button--admin {
+  background-color: #28a745;
+  color: white;
+  border: 2px solid #28a745;
+}
+
+.calendar-actions .button--admin:hover {
+  background-color: #1e7e34;
+  border-color: #1e7e34;
+  color: white;
+  text-decoration: none;
+}
+
+.calendar-actions .login-message {
+  font-style: italic;
+  color: #666;
+  margin: 0;
+}
+
+.calendar-actions .login-message a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.calendar-actions .login-message a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive design for buttons */
+@media (max-width: 768px) {
+  .calendar-actions .button {
+    display: block;
+    margin: 5px auto;
+    max-width: 250px;
+  }
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .radicale-calendar-wrapper {
