@@ -93,6 +93,41 @@
   color: #dc3545;
 }
 
+/* Queue status page */
+.queue-status-header {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-left: 4px solid #28a745;
+}
+
+.queue-status-header h1 {
+  margin: 0;
+  color: #28a745;
+}
+
+.queue-status-info {
+  background: #e9ecef;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.recent-activity-table {
+  width: 100%;
+}
+
+.recent-activity-table th,
+.recent-activity-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.recent-activity-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
 /* Help text styling */
 .messages--info {
   background-color: #d1ecf1;

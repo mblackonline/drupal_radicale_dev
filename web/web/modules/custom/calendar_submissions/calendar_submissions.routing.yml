@@ -22,6 +22,21 @@ calendar_submissions.admin_list:
   requirements:
     _permission: 'view calendar submissions'
 
+calendar_submissions.queue_status:
+  path: '/admin/content/calendar-submissions/queue'
+  defaults:
+    _controller: '\Drupal\calendar_submissions\Controller\CalendarSubmissionController::queueStatusPage'
+    _title: 'Queue Status'
+  requirements:
+    _permission: 'edit calendar submissions'
+
+calendar_submissions.process_queue:
+  path: '/admin/content/calendar-submissions/process-queue'
+  defaults:
+    _controller: '\Drupal\calendar_submissions\Controller\CalendarSubmissionController::processQueue'
+  requirements:
+    _permission: 'edit calendar submissions'
+
 calendar_submissions.settings:
   path: '/admin/config/content/calendar-submissions'
   defaults:

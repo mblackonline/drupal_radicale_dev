@@ -203,4 +203,149 @@ class CalendarSubmissionController extends ControllerBase {
     return $build;
   }
 
+  /**
+   * Queue status page for administrators.
+   *
+   * @return array
+   *   A render array.
+   */
+  public function queueStatusPage() {
+    $build = [];
+
+    $build['header'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['queue-status-header']],
+    ];
+
+    $build['header']['title'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'h1',
+      '#value' => $this->t('Calendar Submission Queue Status'),
+    ];
+
+    // Get queue manager service.
+    $queue_manager = \Drupal::service('calendar_submissions.queue_manager');
+    $queue_count = $queue_manager->getQueueCount();
+
+    // Queue status information.
+    $build['status'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['queue-status-info']],
+    ];
+
+    $build['status']['count'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'p',
+      '#value' => $this->t('Items in publishing queue: <strong>@count</strong>', ['@count' => $queue_count]),
+    ];
+
+    if ($queue_count > 0) {
+      $build['status']['process'] = [
+        '#type' => 'html_tag',
+        '#tag' => 'p',
+        '#value' => $this->t('Queue items will be processed automatically during cron runs, or you can process them manually below.'),
+      ];
+
+      // Manual processing button.
+      $build['actions'] = [
+        '#type' => 'actions',
+      ];
+
+      $build['actions']['process'] = [
+        '#type' => 'link',
+        '#title' => $this->t('Process Queue Now'),
+        '#url' => \Drupal\Core\Url::fromRoute('calendar_submissions.process_queue'),
+        '#attributes' => [
+          'class' => ['button', 'button--primary'],
+        ],
+      ];
+    } else {
+      $build['status']['empty'] = [
+        '#type' => 'html_tag',
+        '#tag' => 'p',
+        '#value' => $this->t('The publishing queue is currently empty.'),
+      ];
+    }
+
+    // Recent activity.
+    $build['recent'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Recent Activity'),
+      '#open' => TRUE,
+    ];
+
+    // Get recent submissions.
+    $storage = $this->entityTypeManager->getStorage('calendar_submission');
+    $query = $storage->getQuery()
+      ->sort('changed', 'DESC')
+      ->range(0, 10)
+      ->accessCheck(TRUE);
+    
+    $entity_ids = $query->execute();
+    
+    if ($entity_ids) {
+      $entities = $storage->loadMultiple($entity_ids);
+      
+      $header = [
+        $this->t('Title'),
+        $this->t('Status'),
+        $this->t('Submitter'),
+        $this->t('Last Updated'),
+      ];
+      
+      $rows = [];
+      foreach ($entities as $entity) {
+        $status = $entity->get('status')->value;
+        $status_class = 'status-' . str_replace('_', '-', $status);
+        
+        $rows[] = [
+          $entity->toLink()->toString(),
+          [
+            'data' => [
+              '#type' => 'html_tag',
+              '#tag' => 'span',
+              '#value' => ucfirst(str_replace('_', ' ', $status)),
+              '#attributes' => ['class' => ['status-badge', $status_class]],
+            ],
+          ],
+          $entity->getOwner() ? $entity->getOwner()->getDisplayName() : $this->t('Anonymous'),
+          \Drupal::service('date.formatter')->format($entity->getChangedTime(), 'short'),
+        ];
+      }
+      
+      $build['recent']['table'] = [
+        '#type' => 'table',
+        '#header' => $header,
+        '#rows' => $rows,
+        '#attributes' => ['class' => ['recent-activity-table']],
+      ];
+    } else {
+      $build['recent']['empty'] = [
+        '#type' => 'markup',
+        '#markup' => '<p>' . $this->t('No recent activity.') . '</p>',
+      ];
+    }
+
+    return $build;
+  }
+
+  /**
+   * Process queue manually.
+   *
+   * @return \Symfony\Component\HttpFoundation\RedirectResponse
+   *   A redirect response.
+   */
+  public function processQueue() {
+    $queue_manager = \Drupal::service('calendar_submissions.queue_manager');
+    $processed = $queue_manager->processQueue(10);
+    
+    if ($processed > 0) {
+      $this->messenger()->addMessage($this->t('Processed @count queue items.', ['@count' => $processed]));
+    } else {
+      $this->messenger()->addMessage($this->t('No queue items to process.'));
+    }
+    
+    return $this->redirect('calendar_submissions.queue_status');
+  }
+
 }
