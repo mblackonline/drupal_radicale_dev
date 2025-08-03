@@ -1,0 +1,206 @@
+<?php
+
+namespace Drupal\calendar_submissions\Controller;
+
+use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Entity\EntityFormBuilderInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
+/**
+ * Controller for calendar submission pages.
+ */
+class CalendarSubmissionController extends ControllerBase {
+
+  /**
+   * The entity form builder.
+   *
+   * @var \Drupal\Core\Entity\EntityFormBuilderInterface
+   */
+  protected $entityFormBuilder;
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * Constructs a CalendarSubmissionController object.
+   *
+   * @param \Drupal\Core\Entity\EntityFormBuilderInterface $entity_form_builder
+   *   The entity form builder.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   */
+  public function __construct(EntityFormBuilderInterface $entity_form_builder, EntityTypeManagerInterface $entity_type_manager) {
+    $this->entityFormBuilder = $entity_form_builder;
+    $this->entityTypeManager = $entity_type_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('entity.form_builder'),
+      $container->get('entity_type.manager')
+    );
+  }
+
+  /**
+   * User-friendly submission form page.
+   *
+   * @return array
+   *   A render array.
+   */
+  public function submitEventPage() {
+    $build = [];
+
+    // Page header with instructions.
+    $build['header'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['calendar-submission-header']],
+    ];
+
+    $build['header']['title'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'h1',
+      '#value' => $this->t('Submit a Calendar Event'),
+    ];
+
+    $build['header']['description'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'p',
+      '#value' => $this->t('Submit your event for review and inclusion in the public calendar. All submissions are reviewed by moderators before being published.'),
+      '#attributes' => ['class' => ['lead']],
+    ];
+
+    // Create a new entity and get its form.
+    $entity = $this->entityTypeManager
+      ->getStorage('calendar_submission')
+      ->create();
+
+    $build['form'] = $this->entityFormBuilder->getForm($entity, 'add');
+
+    return $build;
+  }
+
+  /**
+   * User's own submissions page.
+   *
+   * @return array
+   *   A render array.
+   */
+  public function mySubmissionsPage() {
+    $build = [];
+
+    $build['header'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['my-submissions-header']],
+    ];
+
+    $build['header']['title'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'h1',
+      '#value' => $this->t('My Calendar Submissions'),
+    ];
+
+    // Get current user's submissions.
+    $current_user = $this->currentUser();
+    $storage = $this->entityTypeManager->getStorage('calendar_submission');
+    
+    $query = $storage->getQuery()
+      ->condition('user_id', $current_user->id())
+      ->sort('created', 'DESC')
+      ->accessCheck(TRUE);
+    
+    $entity_ids = $query->execute();
+
+    if (empty($entity_ids)) {
+      $build['empty'] = [
+        '#type' => 'markup',
+        '#markup' => '<p>' . $this->t('You have not submitted any calendar events yet. <a href="@url">Submit your first event</a>.', [
+          '@url' => '/submit-calendar-event',
+        ]) . '</p>',
+      ];
+      return $build;
+    }
+
+    $entities = $storage->loadMultiple($entity_ids);
+
+    // Build a table of submissions.
+    $header = [
+      $this->t('Title'),
+      $this->t('Start Date'),
+      $this->t('Status'),
+      $this->t('Submitted'),
+      $this->t('Actions'),
+    ];
+
+    $rows = [];
+    foreach ($entities as $entity) {
+      $start_date = $entity->get('start_date')->value;
+      $start_formatted = $start_date ? \Drupal::service('date.formatter')->format(strtotime($start_date), 'medium') : '';
+      
+      $status = $entity->get('status')->value;
+      $status_class = 'status-' . str_replace('_', '-', $status);
+      
+      $actions = [];
+      
+      // Only allow editing if still in submitted status.
+      if ($status === 'submitted') {
+        $actions[] = [
+          '#type' => 'link',
+          '#title' => $this->t('Edit'),
+          '#url' => $entity->toUrl('edit-form'),
+          '#attributes' => ['class' => ['button', 'button--small']],
+        ];
+      }
+      
+      $actions[] = [
+        '#type' => 'link',
+        '#title' => $this->t('View'),
+        '#url' => $entity->toUrl(),
+        '#attributes' => ['class' => ['button', 'button--small']],
+      ];
+
+      $rows[] = [
+        $entity->getTitle(),
+        $start_formatted,
+        [
+          'data' => [
+            '#type' => 'html_tag',
+            '#tag' => 'span',
+            '#value' => ucfirst(str_replace('_', ' ', $status)),
+            '#attributes' => ['class' => ['status-badge', $status_class]],
+          ],
+        ],
+        \Drupal::service('date.formatter')->format($entity->getCreatedTime(), 'short'),
+        [
+          'data' => $actions,
+        ],
+      ];
+    }
+
+    $build['table'] = [
+      '#type' => 'table',
+      '#header' => $header,
+      '#rows' => $rows,
+      '#attributes' => ['class' => ['my-submissions-table']],
+    ];
+
+    $build['submit_new'] = [
+      '#type' => 'link',
+      '#title' => $this->t('Submit New Event'),
+      '#url' => \Drupal\Core\Url::fromRoute('calendar_submissions.submit_event'),
+      '#attributes' => [
+        'class' => ['button', 'button--primary'],
+      ],
+    ];
+
+    return $build;
+  }
+
+}

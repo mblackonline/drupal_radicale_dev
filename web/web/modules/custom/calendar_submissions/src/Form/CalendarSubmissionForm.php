@@ -41,6 +41,12 @@ class CalendarSubmissionForm extends ContentEntityForm {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form = parent::buildForm($form, $form_state);
 
+    // Add our CSS library.
+    $form['#attached']['library'][] = 'calendar_submissions/calendar_submissions';
+    
+    // Add CSS class to form.
+    $form['#attributes']['class'][] = 'calendar-submission-form';
+
     // Add some helpful text for users.
     $form['help'] = [
       '#type' => 'markup',

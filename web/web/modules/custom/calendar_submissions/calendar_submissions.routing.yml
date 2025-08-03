@@ -1,0 +1,31 @@
+calendar_submissions.submit_event:
+  path: '/submit-calendar-event'
+  defaults:
+    _controller: '\Drupal\calendar_submissions\Controller\CalendarSubmissionController::submitEventPage'
+    _title: 'Submit Calendar Event'
+  requirements:
+    _permission: 'add calendar submissions'
+
+calendar_submissions.my_submissions:
+  path: '/my-calendar-submissions'
+  defaults:
+    _controller: '\Drupal\calendar_submissions\Controller\CalendarSubmissionController::mySubmissionsPage'
+    _title: 'My Calendar Submissions'
+  requirements:
+    _permission: 'add calendar submissions'
+
+calendar_submissions.admin_list:
+  path: '/admin/content/calendar-submissions'
+  defaults:
+    _entity_list: 'calendar_submission'
+    _title: 'Calendar Submissions'
+  requirements:
+    _permission: 'view calendar submissions'
+
+calendar_submissions.settings:
+  path: '/admin/config/content/calendar-submissions'
+  defaults:
+    _form: '\Drupal\calendar_submissions\Form\CalendarSubmissionSettingsForm'
+    _title: 'Calendar Submission Settings'
+  requirements:
+    _permission: 'administer calendar submissions'

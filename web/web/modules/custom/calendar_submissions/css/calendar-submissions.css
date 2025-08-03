@@ -1,0 +1,104 @@
+/* Calendar Submissions Styling */
+
+.calendar-submission-header,
+.my-submissions-header {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-left: 4px solid #007bff;
+}
+
+.calendar-submission-header h1,
+.my-submissions-header h1 {
+  margin: 0 0 0.5rem 0;
+  color: #007bff;
+}
+
+.calendar-submission-header .lead {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #6c757d;
+}
+
+/* Status badges */
+.status-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.status-submitted {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.status-under-review {
+  background-color: #cce5ff;
+  color: #004085;
+  border: 1px solid #99ccff;
+}
+
+.status-approved {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.status-rejected {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.status-published {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+
+/* Submissions table */
+.my-submissions-table {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.my-submissions-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  padding: 0.75rem;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.my-submissions-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #dee2e6;
+  vertical-align: middle;
+}
+
+.my-submissions-table .button--small {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.85rem;
+  margin-right: 0.25rem;
+}
+
+/* Form improvements */
+.calendar-submission-form .form-item {
+  margin-bottom: 1rem;
+}
+
+.calendar-submission-form .form-required {
+  color: #dc3545;
+}
+
+/* Help text styling */
+.messages--info {
+  background-color: #d1ecf1;
+  border-color: #bee5eb;
+  color: #0c5460;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+}

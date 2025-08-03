@@ -1,0 +1,7 @@
+calendar_submissions:
+  version: 1.x
+  css:
+    theme:
+      css/calendar-submissions.css: {}
+  dependencies:
+    - core/drupal
