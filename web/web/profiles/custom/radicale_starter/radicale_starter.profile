@@ -24,7 +24,7 @@ function radicale_starter_form_install_configure_form_alter(&$form, FormStateInt
 function radicale_starter_install_tasks(&$install_state) {
   return [
     'radicale_starter_enable_modules' => [
-      'display_name' => t('Enable Radicale Calendar module'),
+      'display_name' => t('Enable calendar modules'),
       'type' => 'normal',
     ],
     'radicale_starter_configure_site' => [
@@ -35,11 +35,14 @@ function radicale_starter_install_tasks(&$install_state) {
 }
 
 /**
- * Enable the Radicale Calendar module.
+ * Enable the calendar modules.
  */
 function radicale_starter_enable_modules(&$install_state) {
-  // Enable the custom radicale_calendar module
-  \Drupal::service('module_installer')->install(['radicale_calendar']);
+  // Enable the custom calendar modules
+  \Drupal::service('module_installer')->install([
+    'radicale_calendar',
+    'calendar_submissions'
+  ]);
 }
 
 /**

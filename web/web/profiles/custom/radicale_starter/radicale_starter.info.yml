@@ -1,6 +1,6 @@
 name: 'Radicale Calendar Starter'
 type: profile
-description: 'Drupal installation profile with Radicale CalDAV integration and basic content'
+description: 'Drupal installation profile with Radicale CalDAV integration and calendar event submission system'
 version: VERSION
 core_version_requirement: ^11
 base profile: standard
@@ -12,11 +12,13 @@ dependencies:
   - drupal:ckeditor5
   - drupal:config
   - drupal:contact
+  - drupal:content_moderation
   - drupal:contextual
   - drupal:datetime
   - drupal:dblog
   - drupal:dynamic_page_cache
   - drupal:editor
+  - drupal:field
   - drupal:field_ui
   - drupal:file
   - drupal:filter
@@ -41,7 +43,9 @@ dependencies:
   - drupal:user
   - drupal:views
   - drupal:views_ui
+  - drupal:workflows
   - radicale_calendar:radicale_calendar
+  - calendar_submissions:calendar_submissions
 
 themes:
   - olivero

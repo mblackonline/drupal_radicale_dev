@@ -1,6 +1,6 @@
 {
     "name": "drupal/radicale-starter-project",
-    "description": "Drupal + Radicale CalDAV development environment template with working calendar integration",
+    "description": "Drupal + Radicale CalDAV development environment with calendar integration and event submission system",
     "type": "project",
     "license": "GPL-2.0-or-later",
     "homepage": "https://github.com/your-username/drupal-radicale-template",
@@ -86,14 +86,15 @@
             "post-create-project-cmd-message": [
                 "<bg=blue;fg=white>                                                         </>",
                 "<bg=blue;fg=white>  Congratulations, you've installed the Drupal codebase  </>",
-                "<bg=blue;fg=white>  from the drupal/radicale-starter-project template!     </>",
+                "<bg=blue;fg=white>  with Radicale CalDAV and event submission system!     </>",
                 "<bg=blue;fg=white>                                                         </>",
                 "",
                 "<bg=yellow;fg=black>Next steps</>:",
                 "  * Follow setup: devenv shell && cd web && composer install && cd .. && devenv up -d",
                 "  * Install Drupal: http://127.0.0.1:8000 (select 'Radicale Calendar Starter')",
                 "  * View calendar: http://127.0.0.1:8000/calendar",
-                "  * Add events: http://127.0.0.1:5232"
+                "  * Submit events: http://127.0.0.1:8000/submit-calendar-event",
+                "  * CalDAV server: http://127.0.0.1:5232"
             ]
         }
     }
