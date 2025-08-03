@@ -1,6 +1,6 @@
-# Drupal 11 + Radicale Calendar Development Template
+# Drupal 11 + Radicale Calendar Development Template with Submissions
 
-A local development environment for Drupal 11 with integrated Radicale CalDAV server for calendar synchronization. Events added from Radicale appear automatically in Drupal with real-time sync.
+A local development environment for Drupal 11 with integrated Radicale CalDAV server for calendar synchronization. Features a complete calendar submission and moderation workflow system where users can submit events for approval before they're published to the shared calendar.
 
 ## Screenshots
 
@@ -20,6 +20,19 @@ A local development environment for Drupal 11 with integrated Radicale CalDAV se
 - Real-time synchronization between Radicale and Drupal
 - FullCalendar interface for calendar display
 - PostgreSQL database pre-configured for Drupal
+- **Public Event Submission Form**: Anyone can submit calendar events for review
+- **User Registration & Login**: Custom user management with simplified forms
+- **Content Moderation Workflow**: Events go through approval process before publication
+- **Queue-based Publishing**: Approved events are automatically published to Radicale via background processing
+- **User Dashboard**: Users can track their submitted events and their status
+- **Administrative Interface**: Moderators can review, approve, or reject submissions
+- **Role-based Permissions**: Granular access control for different user types
+
+### User Roles & Permissions
+- **Anonymous Users**: Can view calendar and submit events
+- **Registered Users**: Can submit events and view their submission history
+- **Moderators**: Can review and approve/reject submitted events
+- **Administrators**: Full access to all system features and configuration
 
 ## Prerequisites
 
@@ -77,20 +90,63 @@ devenv up -d
      - **Port**: 5432
 4. Complete the installation wizard
 
-## Access
+**Important**: The installation profile will automatically enable the calendar submission system and set up the moderation workflow.
 
-### Local Access (from your development machine)
+## Access & User Interface
 
-**Drupal Frontend:**
-- Welcome Page: http://127.0.0.1:8000/welcome
-- Calendar View: http://127.0.0.1:8000/calendar
+### Public Access
+- **Welcome Page**: http://127.0.0.1:8000/welcome
+- **Calendar View**: http://127.0.0.1:8000/calendar
+- **Submit Events**: http://127.0.0.1:8000/submit-calendar-event
+- **User Registration**: http://127.0.0.1:8000/register
+- **User Login**: http://127.0.0.1:8000/login
 
-**Radicale CalDAV Server:**
-- URL: http://127.0.0.1:5232
-- Username: `admin`
-- Password: (leave empty)
+### User Dashboard
+- **My Submissions**: http://127.0.0.1:8000/my-calendar-submissions
+  - View all your submitted events
+  - Track approval status (Pending, Approved, Rejected)
+  - See publication status to Radicale
 
-### External Access (for testing CalDAV clients)
+### Administrative Access
+- **Review Submissions**: http://127.0.0.1:8000/admin/content/calendar-submissions
+- **Queue Management**: http://127.0.0.1:8000/admin/content/calendar-submissions/queue
+- **Process Queue Manually**: http://127.0.0.1:8000/admin/content/calendar-submissions/process-queue
+- **System Settings**: http://127.0.0.1:8000/admin/config/content/calendar-submissions
+
+### Radicale CalDAV Server
+- **URL**: http://127.0.0.1:5232
+- **Username**: `admin`
+- **Password**: (leave empty)
+
+## Workflow Process
+
+### For Users Submitting Events
+
+1. **Register/Login**: Create an account at `/register` or login at `/login`
+2. **Submit Event**: Go to `/submit-calendar-event` and fill out the form:
+   - Event Title
+   - Description
+   - Start Date & Time
+   - End Date & Time
+   - Location
+3. **Track Status**: Check `/my-calendar-submissions` to see approval status
+4. **Publication**: Once approved, events automatically appear in the calendar and Radicale
+
+### For Moderators
+
+1. **Review Queue**: Go to `/admin/content/calendar-submissions`
+2. **Approve/Reject**: Use the bulk operations or individual submission pages
+3. **Monitor Publishing**: Check `/admin/content/calendar-submissions/queue` for publication status
+4. **Manual Processing**: If needed, manually process the queue at `/admin/content/calendar-submissions/process-queue`
+
+### Automated Processing
+
+- **Cron Integration**: The system automatically processes approved events during cron runs
+- **Queue System**: Background processing ensures reliable publication to Radicale
+- **Error Handling**: Failed publications are logged and can be retried
+- **Logging**: All actions are logged for audit purposes
+
+## External Access (for testing CalDAV clients)
 
 To test CalDAV clients from mobile devices or other computers:
 
@@ -132,7 +188,7 @@ To test CalDAV clients from mobile devices or other computers:
    Remove-NetFirewallRule -DisplayName "Radicale CalDAV"
    ```
 
-### Daily Development Workflow
+## Daily Development Workflow
 
 ```bash
 # Start development session
@@ -148,6 +204,11 @@ cd web
 ./vendor/bin/drush cr 
 cd ..
 
+# Process submission queue manually (if needed)
+cd web
+./vendor/bin/drush cron
+cd ..
+
 # View logs if needed
 devenv logs postgres
 devenv logs radicale
@@ -155,25 +216,6 @@ devenv logs webserver
 
 # End session
 exit
-```
-
-### Reset Environment
-
-```bash
-# Exit devenv shell first
-exit
-
-# Run cleanup (terminal will freeze - this is normal)
-./cleanup.sh
-
-# Close terminal window completely, then open new terminal
-cd drupal_radicale_dev
-chmod +x setup.sh cleanup.sh
-./setup.sh
-devenv shell
-cd web && composer install && cd ..
-devenv up -d
-# Reinstall Drupal at http://127.0.0.1:8000
 ```
 
 ## Configuration
@@ -187,17 +229,26 @@ Configure the Radicale server connection in Drupal:
 - **Default Username**: `admin`
 - **Default Password**: (empty)
 
-To modify defaults before installation, edit:
-`web/web/modules/custom/radicale_calendar/config/install/radicale_calendar.settings.yml`
+### Calendar Submission Settings
 
-### Database Credentials
+Configure submission system settings:
+- **Location**: Configuration → Content authoring → Calendar Submission Settings
+- **URL**: `/admin/config/content/calendar-submissions`
+- Configure moderation workflow settings
+- Set default approval requirements
+- Manage queue processing options
 
-PostgreSQL development credentials (hardcoded):
-- **Database**: `drupal`
-- **Username**: `drupaluser`
-- **Password**: `drupalpass`
+### User Permissions
 
-**Security Note**: This setup has no authentication on Radicale for easy development. Do not use in production. Change database credentials for any non-development use.
+Manage who can submit and moderate events:
+- **Location**: People → Permissions
+- **URL**: `/admin/people/permissions`
+- Configure roles for:
+  - `add calendar submissions`
+  - `view calendar submissions`
+  - `edit calendar submissions`
+  - `delete calendar submissions`
+  - `administer calendar submissions`
 
 ## Project Structure
 
@@ -211,27 +262,30 @@ drupal_radicale_dev/
 ├── devenv.yaml                  # Devenv metadata
 ├── docs/                        # Documentation assets
 │   └── images/                  # Screenshots and images
-│       ├── calendar-view.png
-│       ├── radicale-interface.png
-│       └── welcome-page.png
 ├── setup.sh                    # Initial setup script
 └── web/                        # Drupal root directory
     ├── composer.json           # PHP dependencies configuration
     ├── recipes/                # Drupal recipes
     └── web/                    # Drupal document root
-        ├── core/               # Drupal core (git-ignored)
         ├── modules/
         │   └── custom/
-        │       └── radicale_calendar/  # Custom calendar integration module
+        │       ├── radicale_calendar/      # Core calendar integration
+        │       │   ├── config/
+        │       │   ├── src/
+        │       │   └── templates/
+        │       └── calendar_submissions/   # NEW: Submission & moderation system
         │           ├── config/
         │           ├── src/
-        │           └── templates/
-        │               └── radicale-welcome.html.twig
+        │           │   ├── Controller/     # Page controllers
+        │           │   ├── Entity/         # Calendar submission entity
+        │           │   ├── Form/           # User forms
+        │           │   ├── Plugin/         # Field and view plugins
+        │           │   └── Service/        # Queue management service
+        │           ├── css/                # Styling
+        │           └── templates/          # Twig templates
         ├── profiles/
         │   └── custom/
-        │       └── radicale_starter/   # Custom installation profile
-        ├── sites/
-        │   └── default/        # Site configuration (git-ignored when populated)
+        │       └── radicale_starter/       # Installation profile
         └── themes/
             └── custom/         # Custom themes directory
 ```
@@ -239,10 +293,21 @@ drupal_radicale_dev/
 **Key Directories:**
 - **`.devenv/`** - Devenv state including PostgreSQL data and Radicale storage (git-ignored)
 - **`web/vendor/`** - Composer packages (git-ignored)
-- **`web/web/modules/custom/radicale_calendar/`** - Main integration module
+- **`web/web/modules/custom/radicale_calendar/`** - Core calendar integration module
+- **`web/web/modules/custom/calendar_submissions/`** - Event submission and moderation system
 - **`web/web/profiles/custom/radicale_starter/`** - Installation profile for quick setup
 
+## Database Schema
+
+The system creates additional database tables:
+- `calendar_submission` - Main submission entity storage
+- `calendar_submission_field_data` - Field data for submissions
+- `queue` - Background job queue for processing
+- Content moderation tables (provided by Drupal core)
+
 ## Troubleshooting
+
+### General Issues
 
 **Permission denied on scripts:**
 ```bash
@@ -264,24 +329,123 @@ devenv shell
 devenv up -d
 ```
 
+### Submission System Issues
+
+**Queue not processing:**
+```bash
+cd web
+./vendor/bin/drush cron
+./vendor/bin/drush queue:run calendar_submission_publishing
+cd ..
+```
+
+**Check queue status:**
+```bash
+cd web
+./vendor/bin/drush queue:list
+cd ..
+```
+
+**Clear cache after configuration changes:**
+```bash
+cd web
+./vendor/bin/drush cr
+cd ..
+```
+
+**Check submission logs:**
+```bash
+cd web
+./vendor/bin/drush watchdog:show --type=calendar_submissions
+cd ..
+```
+
+### Database Issues
+
 **Database connection failed:**
 ```bash
 devenv processes
 psql -h 127.0.0.1 -p 5432 -U drupaluser -d drupal
 ```
 
+**Reset permissions:**
+```bash
+cd web
+./vendor/bin/drush user:role:add administrator admin
+cd ..
+```
+
+### Reset Environment
+
+If you encounter persistent issues:
+
+```bash
+# Exit devenv shell first
+exit
+
+# Run cleanup (terminal will freeze - this is normal)
+./cleanup.sh
+
+# Close terminal window completely, then open new terminal
+cd drupal_radicale_dev
+chmod +x setup.sh cleanup.sh
+./setup.sh
+devenv shell
+cd web && composer install && cd ..
+devenv up -d
+# Reinstall Drupal at http://127.0.0.1:8000
+```
+
+## Development Notes
+
+### Customizing the Submission Form
+
+Edit `/web/web/modules/custom/calendar_submissions/src/Entity/CalendarSubmission.php` to modify available fields.
+
+### Modifying the Workflow
+
+1. Go to Configuration → Workflow → Workflows
+2. Edit the "Editorial" workflow
+3. Add/modify states and transitions as needed
+
+### Extending Functionality
+
+The modular design allows easy extension:
+- Add new fields to the CalendarSubmission entity
+- Create custom validation rules
+- Implement additional notification systems
+- Add integration with external calendar services
+
 ## Contributing
 
 When contributing:
-1. Create feature branches from this project
+1. Create feature branches from the main branch
 2. Never commit: `.devenv/`, `web/vendor/`, `web/composer.lock`, database dumps, `.env` files
 3. Test with fresh clone before submitting PRs
 4. Keep credentials and URLs generic
+5. Update this README when adding new features
+6. Test the submission workflow thoroughly
+
+## Security Considerations
+
+**Development Setup Notes:**
+- This setup has no authentication on Radicale for easy development
+- Database credentials are hardcoded for development convenience
+- User registration is open by default
+
+**For Production Use:**
+- Change all default passwords and database credentials
+- Enable Radicale authentication
+- Configure proper SSL/TLS certificates
+- Review and restrict user registration settings
+- Set up proper backup procedures
+- Configure email notifications for moderation workflow
 
 ## Resources
 
 - [Devenv Documentation](https://devenv.sh/)
 - [Drupal 11 Documentation](https://www.drupal.org/docs)
+- [Drupal Content Moderation](https://www.drupal.org/docs/8/core/modules/content-moderation)
 - [Radicale Documentation](https://radicale.org/)
 - [CalDAV Protocol](https://tools.ietf.org/html/rfc4791)
 
