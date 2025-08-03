@@ -21,8 +21,8 @@ A local development environment for Drupal 11 with integrated Radicale CalDAV se
 - PostgreSQL database pre-configured for Drupal
 - Public event submission form: Anyone can submit calendar events for review
 - User registration and login: Custom user management with simplified forms
-- Content moderation workflow: Events go through approval process before publication
-- Queue-based publishing: Approved events are automatically published to Radicale via background processing
+- Moderation queue workflow: Events sit in moderation queue until approved or rejected
+- Immediate publishing: Approved events appear instantly on the calendar
 - User dashboard: Users can track their submitted events and their status
 - Administrative interface: Moderators can review, approve, or reject submissions
 - Role-based permissions: Granular access control for different user types
@@ -103,13 +103,10 @@ devenv up -d
 ### User Dashboard
 - **My Submissions**: http://127.0.0.1:8000/my-calendar-submissions
   - View all your submitted events
-  - Track approval status (Pending, Approved, Rejected)
-  - See publication status to Radicale
+  - Track approval status (Submitted, Under Review, Approved & Published, Rejected)
 
 ### Administrative Access
 - **Review Submissions**: http://127.0.0.1:8000/admin/content/calendar-submissions
-- **Queue Management**: http://127.0.0.1:8000/admin/content/calendar-submissions/queue
-- **Process Queue Manually**: http://127.0.0.1:8000/admin/content/calendar-submissions/process-queue
 - **System Settings**: http://127.0.0.1:8000/admin/config/content/calendar-submissions
 
 ### Radicale CalDAV Server
@@ -129,21 +126,20 @@ devenv up -d
    - End Date & Time
    - Location
 3. **Track Status**: Check `/my-calendar-submissions` to see approval status
-4. **Publication**: Once approved, events automatically appear in the calendar and Radicale
+4. **Publication**: Once approved, events immediately appear in the calendar and Radicale
 
 ### For Moderators
 
-1. **Review Queue**: Go to `/admin/content/calendar-submissions`
-2. **Approve/Reject**: Use the bulk operations or individual submission pages
-3. **Monitor Publishing**: Check `/admin/content/calendar-submissions/queue` for publication status
-4. **Manual Processing**: If needed, manually process the queue at `/admin/content/calendar-submissions/process-queue`
+1. **Review Moderation Queue**: Go to `/admin/content/calendar-submissions`
+2. **Approve/Reject**: Edit individual submissions and change status to "Approved & Published" or "Rejected"
+3. **Immediate Results**: Approved events appear instantly on the calendar
 
-### Automated Processing
+### Status Workflow
 
-- **Cron Integration**: The system automatically processes approved events during cron runs
-- **Queue System**: Background processing ensures reliable publication to Radicale
-- **Error Handling**: Failed publications are logged and can be retried
-- **Logging**: All actions are logged for audit purposes
+- **Submitted**: Event is in the moderation queue waiting for review
+- **Under Review**: Moderator is actively reviewing the submission
+- **Approved & Published**: Event is approved and immediately published to the calendar
+- **Rejected**: Event was rejected and will not appear on the calendar
 
 ## External Access (for testing CalDAV clients)
 
@@ -203,11 +199,6 @@ cd web
 ./vendor/bin/drush cr 
 cd ..
 
-# Process submission queue manually (if needed)
-cd web
-./vendor/bin/drush cron
-cd ..
-
 # View logs if needed
 devenv logs postgres
 devenv logs radicale
@@ -235,7 +226,6 @@ Configure submission system settings:
 - **URL**: `/admin/config/content/calendar-submissions`
 - Configure moderation workflow settings
 - Set default approval requirements
-- Manage queue processing options
 
 ### User Permissions
 
@@ -278,8 +268,7 @@ drupal_radicale_dev/
         │           │   ├── Controller/     # Page controllers
         │           │   ├── Entity/         # Calendar submission entity
         │           │   ├── Form/           # User forms
-        │           │   ├── Plugin/         # Field and view plugins
-        │           │   └── Service/        # Queue management service
+        │           │   └── Service/        # Immediate publishing service
         │           ├── css/                # Styling
         │           └── templates/          # Twig templates
         ├── profiles/
@@ -301,7 +290,6 @@ drupal_radicale_dev/
 The system creates additional database tables:
 - `calendar_submission` - Main submission entity storage
 - `calendar_submission_field_data` - Field data for submissions
-- `queue` - Background job queue for processing
 - Content moderation tables (provided by Drupal core)
 
 ## Troubleshooting
@@ -330,20 +318,10 @@ devenv up -d
 
 ### Submission System Issues
 
-**Queue not processing:**
-```bash
-cd web
-./vendor/bin/drush cron
-./vendor/bin/drush queue:run calendar_submission_publishing
-cd ..
-```
-
-**Check queue status:**
-```bash
-cd web
-./vendor/bin/drush queue:list
-cd ..
-```
+**Events not appearing after approval:**
+- Check that Radicale server is running: `devenv processes`
+- Verify Radicale is accessible at http://127.0.0.1:5232
+- Check logs for errors: `./vendor/bin/drush watchdog:show --type=calendar_submissions`
 
 **Clear cache after configuration changes:**
 ```bash
