@@ -23,16 +23,33 @@ function calendar_submissions_entity_presave(EntityInterface $entity) {
     $current_status = $entity->get('status')->value;
     $original_status = $original ? $original->get('status')->value : NULL;
 
-    // If status changed to 'approved', queue for publishing.
+    // If status changed to 'approved', publish immediately to Radicale.
     if ($current_status === 'approved' && $original_status !== 'approved') {
-      // Queue the entity for publishing to Radicale.
-      \Drupal::service('calendar_submissions.queue_manager')->queueForPublishing($entity);
-      
-      // Log the approval.
-      \Drupal::logger('calendar_submissions')->info('Calendar submission @id (@title) approved and queued for publishing.', [
-        '@id' => $entity->id(),
-        '@title' => $entity->getTitle(),
-      ]);
+      try {
+        // Publish immediately using the same logic as the queue worker.
+        $publisher = \Drupal::service('calendar_submissions.immediate_publisher');
+        $publisher->publishToRadicale($entity);
+        
+        // Log the immediate publication.
+        \Drupal::logger('calendar_submissions')->info('Calendar submission @id (@title) approved and immediately published to Radicale.', [
+          '@id' => $entity->id(),
+          '@title' => $entity->getTitle(),
+        ]);
+      } catch (\Exception $e) {
+        // Log the error and re-throw to show user the error.
+        \Drupal::logger('calendar_submissions')->error('Failed to immediately publish calendar submission @id to Radicale: @error', [
+          '@id' => $entity->id(),
+          '@error' => $e->getMessage(),
+        ]);
+        
+        // Show user-friendly error message.
+        \Drupal::messenger()->addError(t('Failed to publish event to calendar server: @error', [
+          '@error' => $e->getMessage(),
+        ]));
+        
+        // Re-throw to prevent the save if publishing fails.
+        throw $e;
+      }
     }
   }
 }

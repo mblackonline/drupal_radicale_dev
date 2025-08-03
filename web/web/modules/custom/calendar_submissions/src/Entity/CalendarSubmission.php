@@ -292,9 +292,8 @@ class CalendarSubmission extends ContentEntityBase implements CalendarSubmission
       ->setSetting('allowed_values', [
         'submitted' => 'Submitted',
         'under_review' => 'Under Review',
-        'approved' => 'Approved',
+        'approved' => 'Approved & Published',
         'rejected' => 'Rejected',
-        'published' => 'Published to Calendar',
       ])
       ->setDisplayOptions('view', [
         'label' => 'above',
