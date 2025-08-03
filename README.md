@@ -14,19 +14,18 @@ A local development environment for Drupal 11 with integrated Radicale CalDAV se
 ![Radicale Interface](docs/images/radicale-interface.png)
 
 ## Features
-
 - Drupal 11 with custom calendar module that subscribes to Radicale
 - Radicale CalDAV server as the main source of truth for calendar events
 - Real-time synchronization between Radicale and Drupal
 - FullCalendar interface for calendar display
 - PostgreSQL database pre-configured for Drupal
-- **Public Event Submission Form**: Anyone can submit calendar events for review
-- **User Registration & Login**: Custom user management with simplified forms
-- **Content Moderation Workflow**: Events go through approval process before publication
-- **Queue-based Publishing**: Approved events are automatically published to Radicale via background processing
-- **User Dashboard**: Users can track their submitted events and their status
-- **Administrative Interface**: Moderators can review, approve, or reject submissions
-- **Role-based Permissions**: Granular access control for different user types
+- Public event submission form: Anyone can submit calendar events for review
+- User registration and login: Custom user management with simplified forms
+- Content moderation workflow: Events go through approval process before publication
+- Queue-based publishing: Approved events are automatically published to Radicale via background processing
+- User dashboard: Users can track their submitted events and their status
+- Administrative interface: Moderators can review, approve, or reject submissions
+- Role-based permissions: Granular access control for different user types
 
 ### User Roles & Permissions
 - **Anonymous Users**: Can view calendar and submit events
