@@ -68,6 +68,14 @@ function radicale_starter_configure_site(&$install_state) {
     ->set('favicon.use_default', FALSE)
     ->set('favicon.path', 'favicon.svg')
     ->save();
+  
+  // Grant calendar submission permissions to authenticated users
+  $authenticated_role = \Drupal\user\Entity\Role::load('authenticated');
+  if ($authenticated_role) {
+    $authenticated_role->grantPermission('add calendar submissions');
+    $authenticated_role->grantPermission('view calendar submissions');
+    $authenticated_role->save();
+  }
     
   // Clear all caches to ensure changes take effect
   drupal_flush_all_caches();
