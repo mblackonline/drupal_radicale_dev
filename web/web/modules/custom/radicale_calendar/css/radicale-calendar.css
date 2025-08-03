@@ -137,44 +137,44 @@
 }
 
 .calendar-actions .button--primary {
-  background: linear-gradient(135deg, #00874e, #006b3e);
+  background: #002A3D;
   color: white;
-  border: 2px solid #00874e;
+  border: 2px solid #002A3D;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 8px rgba(0, 135, 78, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 42, 61, 0.2);
 }
 
 .calendar-actions .button--primary:hover {
-  background: linear-gradient(135deg, #006b3e, #005530);
-  border-color: #006b3e;
+  background: #004360;
+  border-color: #004360;
   color: white;
   text-decoration: none;
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 135, 78, 0.3);
+  box-shadow: 0 6px 16px rgba(0, 42, 61, 0.3);
 }
 
 .calendar-actions .button--secondary {
-  background-color: #6c757d;
-  color: white;
-  border: 2px solid #6c757d;
+  background-color: #FFFFFF;
+  color: #004360;
+  border: 2px solid #004360;
 }
 
 .calendar-actions .button--secondary:hover {
-  background-color: #545b62;
-  border-color: #545b62;
-  color: white;
+  background-color: #f3f4f6;
+  border-color: #004360;
+  color: #004360;
   text-decoration: none;
 }
 
 .calendar-actions .button--admin {
-  background: linear-gradient(135deg, #00874e, #1e7e34);
+  background: #002A3D;
   color: white;
-  border: 2px solid #00874e;
+  border: 2px solid #002A3D;
 }
 
 .calendar-actions .button--admin:hover {
-  background: linear-gradient(135deg, #006b3e, #155724);
-  border-color: #006b3e;
+  background: #004360;
+  border-color: #004360;
   color: white;
   text-decoration: none;
   transform: translateY(-2px);

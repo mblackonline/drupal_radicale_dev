@@ -1,0 +1,369 @@
+/* Custom Theme Integration - Chattanooga Colors */
+:root {
+    /* Your exact color variables */
+    --primary-blue: #002A3D;
+    --primary-blue-hover: #004360;
+    --primary-blue-active: #001a26;
+    --white-button-bg: #FFFFFF;
+    --white-button-text: #004360;
+    --gray-button-bg: #f3f4f6;
+    --gray-button-text: #374151;
+    --gray-button-hover: #e5e7eb;
+    --light-blue-from: #f0f9ff;
+    --light-blue-to: #e0f2fe;
+    --neutral-bg: hsla(0, 0%, 82%, .3);
+    --neutral-text: grey;
+    --border-color: #ddd;
+
+    /* FullCalendar custom variables with your colors */
+    --fc-page-bg-color: #fff;
+    --fc-neutral-bg-color: hsla(0, 0%, 82%, .3);
+    --fc-neutral-text-color: grey;
+    --fc-border-color: #ddd;
+    --fc-button-text-color: #FFFFFF;
+    --fc-button-bg-color: #002A3D;
+    --fc-button-border-color: #002A3D;
+    --fc-button-hover-bg-color: #004360;
+    --fc-button-hover-border-color: #004360;
+    --fc-button-active-bg-color: #001a26;
+    --fc-button-active-border-color: #001a26;
+    --fc-event-bg-color: #002A3D;
+    --fc-event-border-color: #002A3D;
+    --fc-event-text-color: #FFFFFF;
+    --fc-event-selected-overlay-color: rgba(0, 0, 0, .25);
+    --fc-more-link-bg-color: #d0d0d0;
+    --fc-more-link-text-color: inherit;
+    --fc-non-business-color: hsla(0, 0%, 84%, .3);
+    --fc-bg-event-color: #93c5fd;
+    --fc-bg-event-opacity: 0.3;
+    --fc-highlight-color: rgba(0, 42, 61, 0.2);
+    --fc-today-bg-color: var(--light-blue-from);
+    --fc-now-indicator-color: var(--primary-blue);
+}
+
+/* Override main calendar wrapper with blue gradient background */
+.radicale-calendar-wrapper {
+    background: linear-gradient(135deg, var(--light-blue-from), var(--light-blue-to));
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 42, 61, 0.1);
+}
+
+.radicale-calendar {
+    background: var(--fc-page-bg-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 42, 61, 0.08);
+    border: 1px solid rgba(0, 42, 61, 0.1);
+}
+
+/* Header styling with your blue theme */
+.calendar-header h1 {
+    color: var(--primary-blue);
+    text-shadow: 0 2px 4px rgba(0, 42, 61, 0.1);
+}
+
+.calendar-subtitle {
+    color: var(--neutral-text);
+}
+
+/* FullCalendar button overrides */
+.fc-button-primary {
+    background-color: var(--fc-button-bg-color) !important;
+    border-color: var(--fc-button-border-color) !important;
+    color: var(--fc-button-text-color) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 8px !important;
+}
+
+.fc-button-primary:hover {
+    background-color: var(--fc-button-hover-bg-color) !important;
+    border-color: var(--fc-button-hover-border-color) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 42, 61, 0.3);
+}
+
+.fc-button-primary:active {
+    background-color: var(--fc-button-active-bg-color) !important;
+    border-color: var(--fc-button-active-border-color) !important;
+    transform: translateY(0);
+}
+
+/* FullCalendar events with your colors */
+.fc-event {
+    background-color: var(--fc-event-bg-color) !important;
+    border-color: var(--fc-event-border-color) !important;
+    color: var(--fc-event-text-color) !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease;
+}
+
+.fc-event:hover {
+    background-color: var(--primary-blue-hover) !important;
+    border-color: var(--primary-blue-hover) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 42, 61, 0.3);
+}
+
+/* Today highlighting */
+.fc-today {
+    background-color: var(--fc-today-bg-color) !important;
+    border-color: var(--primary-blue) !important;
+}
+
+/* Column headers */
+.fc-col-header-cell {
+    background: linear-gradient(135deg, var(--light-blue-from), var(--light-blue-to));
+    border-color: var(--fc-border-color);
+    color: var(--primary-blue);
+    font-weight: 600;
+}
+
+/* Calendar action buttons with your exact colors */
+.calendar-actions .button--primary {
+    background: var(--primary-blue) !important;
+    border-color: var(--primary-blue) !important;
+    color: #FFFFFF !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 42, 61, 0.2);
+    border-radius: 8px !important;
+}
+
+.calendar-actions .button--primary:hover {
+    background: var(--primary-blue-hover) !important;
+    border-color: var(--primary-blue-hover) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 42, 61, 0.3);
+}
+
+.calendar-actions .button--admin {
+    background: var(--primary-blue) !important;
+    border-color: var(--primary-blue) !important;
+    color: #FFFFFF !important;
+}
+
+.calendar-actions .button--admin:hover {
+    background: var(--primary-blue-hover) !important;
+    border-color: var(--primary-blue-hover) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 42, 61, 0.3);
+}
+
+.calendar-actions .button--secondary {
+    background: var(--white-button-bg) !important;
+    border: 1px solid var(--white-button-text) !important;
+    color: var(--white-button-text) !important;
+    transition: all 0.3s ease;
+}
+
+.calendar-actions .button--secondary:hover {
+    background: var(--gray-button-hover) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 67, 96, 0.2);
+}
+
+/* User info section */
+.calendar-actions .user-info {
+    background: linear-gradient(135deg, var(--light-blue-from), var(--light-blue-to));
+    border: 1px solid rgba(0, 42, 61, 0.1);
+    border-radius: 8px;
+}
+
+.calendar-actions .welcome-message {
+    color: var(--primary-blue);
+    font-weight: 600;
+}
+
+/* Footer links */
+.calendar-footer a {
+    color: var(--primary-blue);
+    transition: color 0.3s ease;
+}
+
+.calendar-footer a:hover {
+    color: var(--primary-blue-hover);
+}
+
+/* Toolbar title */
+.fc-toolbar-title {
+    color: var(--primary-blue) !important;
+    font-weight: 600 !important;
+}
+
+/* Enhanced responsive design */
+@media (max-width: 768px) {
+    .radicale-calendar-wrapper {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    .calendar-actions .button {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+}
+
+/* Additional enhancements for better visual hierarchy */
+.fc-daygrid-day-number {
+    color: var(--primary-blue);
+    font-weight: 600;
+}
+
+.fc-list-day {
+    background: linear-gradient(135deg, var(--light-blue-from), var(--light-blue-to)) !important;
+    color: var(--primary-blue);
+    font-weight: 600;
+}
+
+/* Subtle animations */
+.radicale-calendar {
+    transition: box-shadow 0.3s ease;
+}
+
+.radicale-calendar:hover {
+    box-shadow: 0 8px 25px rgba(0, 42, 61, 0.12);
+}
+
+/* Gray button style similar to your export button */
+.button--gray {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    background: var(--gray-button-bg);
+    color: var(--gray-button-text);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    font-weight: 500;
+    border: 1px solid #d1d5db;
+}
+
+.button--gray:hover {
+    background: var(--gray-button-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(55, 65, 81, 0.1);
+}
+
+/* Gradient text utility for titles */
+.gradient-text {
+    background: linear-gradient(to right, #fbbf24, #f97316);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+    line-height: normal;
+}
+
+/* Str
+ong overrides to ensure calendar buttons use your blue colors */
+.fc .fc-button-primary {
+    background-color: #002A3D !important;
+    border-color: #002A3D !important;
+    color: #FFFFFF !important;
+}
+
+.fc .fc-button-primary:hover {
+    background-color: #004360 !important;
+    border-color: #004360 !important;
+    color: #FFFFFF !important;
+}
+
+.fc .fc-button-primary:focus {
+    background-color: #004360 !important;
+    border-color: #004360 !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 42, 61, 0.25) !important;
+}
+
+.fc .fc-button-primary:active {
+    background-color: #001a26 !important;
+    border-color: #001a26 !important;
+    color: #FFFFFF !important;
+}
+
+.fc .fc-button-primary:disabled {
+    background-color: #6b7280 !important;
+    border-color: #6b7280 !important;
+    color: #FFFFFF !important;
+}
+
+/* Ensure events use your blue colors */
+.fc .fc-event {
+    background-color: #002A3D !important;
+    border-color: #002A3D !important;
+    color: #FFFFFF !important;
+}
+
+.fc .fc-event:hover {
+    background-color: #004360 !important;
+    border-color: #004360 !important;
+}
+
+/* Calendar action buttons - ensure they use your colors */
+.calendar-actions .button {
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+}
+/*
+ Calendar page button overrides - use your blue colors instead of green */
+.calendar-actions .button--primary {
+    background: #002A3D !important;
+    color: #FFFFFF !important;
+    border: 2px solid #002A3D !important;
+    box-shadow: 0 2px 8px rgba(0, 42, 61, 0.2) !important;
+}
+
+.calendar-actions .button--primary:hover {
+    background: #004360 !important;
+    border-color: #004360 !important;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(0, 42, 61, 0.3) !important;
+}
+
+.calendar-actions .button--secondary {
+    background: #FFFFFF !important;
+    color: #004360 !important;
+    border: 2px solid #004360 !important;
+    box-shadow: 0 2px 8px rgba(0, 67, 96, 0.2) !important;
+}
+
+.calendar-actions .button--secondary:hover {
+    background: #f3f4f6 !important;
+    border-color: #004360 !important;
+    color: #004360 !important;
+    text-decoration: none !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(0, 67, 96, 0.3) !important;
+}
+
+.calendar-actions .button--admin {
+    background: #002A3D !important;
+    color: #FFFFFF !important;
+    border: 2px solid #002A3D !important;
+    box-shadow: 0 2px 8px rgba(0, 42, 61, 0.2) !important;
+}
+
+.calendar-actions .button--admin:hover {
+    background: #004360 !important;
+    border-color: #004360 !important;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(0, 42, 61, 0.3) !important;
+}
+
+/* Override any remaining green colors */
+.calendar-actions .button--primary,
+.calendar-actions .button--admin {
+    background: #002A3D !important;
+    background-image: none !important;
+}
+
+.calendar-actions .button--primary:hover,
+.calendar-actions .button--admin:hover {
+    background: #004360 !important;
+    background-image: none !important;
+}
