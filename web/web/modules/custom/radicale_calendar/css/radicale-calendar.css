@@ -1,7 +1,10 @@
 .radicale-calendar-wrapper {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 30px;
+  background: linear-gradient(135deg, #e6f5f0, #e6f2f7);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 135, 78, 0.1);
 }
 
 .calendar-header {
@@ -10,23 +13,30 @@
 }
 
 .calendar-header h1 {
-  color: #333;
+  color: #00874e;
   font-size: 2.5rem;
   margin-bottom: 10px;
+  text-shadow: 0 2px 4px rgba(0, 135, 78, 0.1);
 }
 
 .calendar-subtitle {
-  color: #666;
+  color: grey;
   font-size: 1.1rem;
   margin: 0;
 }
 
 .radicale-calendar {
   background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 135, 78, 0.08);
+  border: 1px solid rgba(0, 135, 78, 0.1);
   padding: 20px;
   min-height: 600px;
+  transition: box-shadow 0.3s ease;
+}
+
+.radicale-calendar:hover {
+  box-shadow: 0 8px 25px rgba(0, 135, 78, 0.12);
 }
 
 .calendar-footer {
@@ -37,28 +47,34 @@
 }
 
 .calendar-footer a {
-  color: #0066cc;
+  color: #00874e;
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .calendar-footer a:hover {
+  color: #006b3e;
   text-decoration: underline;
 }
 
 /* FullCalendar customizations */
 .fc-toolbar-title {
   font-size: 1.5rem !important;
-  color: #333 !important;
+  color: #00874e !important;
+  font-weight: 600 !important;
 }
 
 .fc-button-primary {
-  background-color: #0066cc !important;
-  border-color: #0066cc !important;
+  background-color: #00874e !important;
+  border-color: #00874e !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .fc-button-primary:hover {
-  background-color: #0052a3 !important;
-  border-color: #0052a3 !important;
+  background-color: #006b3e !important;
+  border-color: #006b3e !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 135, 78, 0.3);
 }
 
 .fc-event {
@@ -74,13 +90,14 @@
   text-align: center;
   margin-bottom: 1rem;
   padding: 0.75rem;
-  background: #e9ecef;
-  border-radius: 5px;
+  background: linear-gradient(135deg, #e6f5f0, #e6f2f7);
+  border: 1px solid rgba(0, 135, 78, 0.1);
+  border-radius: 8px;
 }
 
 .calendar-actions .welcome-message {
-  color: #333;
-  font-weight: 500;
+  color: #00874e;
+  font-weight: 600;
   margin-right: 1rem;
 }
 
@@ -120,16 +137,20 @@
 }
 
 .calendar-actions .button--primary {
-  background-color: #007bff;
+  background: linear-gradient(135deg, #00874e, #006b3e);
   color: white;
-  border: 2px solid #007bff;
+  border: 2px solid #00874e;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 135, 78, 0.2);
 }
 
 .calendar-actions .button--primary:hover {
-  background-color: #0056b3;
-  border-color: #0056b3;
+  background: linear-gradient(135deg, #006b3e, #005530);
+  border-color: #006b3e;
   color: white;
   text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 135, 78, 0.3);
 }
 
 .calendar-actions .button--secondary {
@@ -146,16 +167,18 @@
 }
 
 .calendar-actions .button--admin {
-  background-color: #28a745;
+  background: linear-gradient(135deg, #00874e, #1e7e34);
   color: white;
-  border: 2px solid #28a745;
+  border: 2px solid #00874e;
 }
 
 .calendar-actions .button--admin:hover {
-  background-color: #1e7e34;
-  border-color: #1e7e34;
+  background: linear-gradient(135deg, #006b3e, #155724);
+  border-color: #006b3e;
   color: white;
   text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 135, 78, 0.3);
 }
 
 .calendar-actions .login-message {
@@ -209,5 +232,23 @@
   
   .radicale-calendar {
     padding: 10px;
+  }
+}
+/
+* Additional enhancements for better visual hierarchy */
+.fc-daygrid-day-number {
+  color: #00874e;
+  font-weight: 600;
+}
+
+.fc-button:focus {
+  box-shadow: 0 0 0 .2rem rgba(0, 135, 78, .25);
+}
+
+/* Enhanced responsive design */
+@media (max-width: 768px) {
+  .calendar-actions .button {
+    padding: 12px 24px;
+    font-size: 1rem;
   }
 }

@@ -1,11 +1,13 @@
 <div class="radicale-welcome-page">
-  <div class="welcome-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; border-radius: 12px; margin-bottom: 30px; text-align: center;">
-    <h1 style="margin: 0 0 15px 0; font-size: 3em; font-weight: 300;">🗓️ Welcome!</h1>
-    <p style="margin: 0 0 25px 0; font-size: 1.3em; opacity: 0.9;">Drupal + Radicale calendar integration</p>
+  <div class="welcome-header" style="background: linear-gradient(135deg, #1e3a8a 0%, #00874e 50%, #0891b2 100%); color: white; padding: 40px 20px; border-radius: 12px; margin-bottom: 30px; text-align: center; box-shadow: 0 8px 32px rgba(30, 58, 138, 0.3);">
+    <h1 style="margin: 0 0 15px 0; font-size: 3em; font-weight: 300; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">🗓️ Welcome!</h1>
+    <p style="margin: 0 0 25px 0; font-size: 1.3em; opacity: 0.95; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">Drupal + Radicale calendar integration</p>
     
     <div style="margin-top: 30px;">
       <a href="/calendar" 
-         style="background: #4CAF50; color: white; padding: 15px 30px; text-decoration: none; border-radius: 25px; font-size: 1.2em; font-weight: bold; display: inline-block; transition: all 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+         style="background: linear-gradient(135deg, #0891b2, #0e7490); color: white; padding: 15px 30px; text-decoration: none; border-radius: 25px; font-size: 1.2em; font-weight: bold; display: inline-block; transition: all 0.3s; box-shadow: 0 4px 15px rgba(8, 145, 178, 0.4); border: 2px solid rgba(255,255,255,0.2);"
+         onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(8, 145, 178, 0.5)';"
+         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(8, 145, 178, 0.4)';">
          📅 View Your Calendar →
       </a>
     </div>
@@ -13,40 +15,40 @@
 
   <div class="info-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 40px;">
     
-    <div class="info-card" style="background: #f8f9fa; padding: 25px; border-radius: 12px; border-left: 4px solid #4CAF50;">
-      <h3 style="color: #2c3e50; margin: 0 0 15px 0; display: flex; align-items: center;">
+    <div class="info-card" style="background: linear-gradient(135deg, #f0f9ff, #e0f2fe); padding: 25px; border-radius: 12px; border-left: 4px solid #00874e; box-shadow: 0 2px 8px rgba(0, 135, 78, 0.1);">
+      <h3 style="color: #1e3a8a; margin: 0 0 15px 0; display: flex; align-items: center;">
         <span style="font-size: 1.5em; margin-right: 10px;">🔄</span>
         How It Works
       </h3>
-      <p style="margin: 0; color: #666; line-height: 1.6;">
-        <strong>Radicale</strong> is your calendar source of truth. <strong>Drupal</strong> fetches and displays events from Radicale in a beautiful interface. Add events through any CalDAV client and see them instantly in Drupal.
+      <p style="margin: 0; color: #475569; line-height: 1.6;">
+        <strong style="color: #00874e;">Radicale</strong> is your calendar source of truth. <strong style="color: #1e3a8a;">Drupal</strong> fetches and displays events from Radicale in a beautiful interface. Add events through any CalDAV client and see them instantly in Drupal.
       </p>
     </div>
     
-    <div class="info-card" style="background: #f8f9fa; padding: 25px; border-radius: 12px; border-left: 4px solid #2196F3;">
-      <h3 style="color: #2c3e50; margin: 0 0 15px 0; display: flex; align-items: center;">
+    <div class="info-card" style="background: linear-gradient(135deg, #f0f9ff, #e0f2fe); padding: 25px; border-radius: 12px; border-left: 4px solid #0891b2; box-shadow: 0 2px 8px rgba(8, 145, 178, 0.1);">
+      <h3 style="color: #1e3a8a; margin: 0 0 15px 0; display: flex; align-items: center;">
         <span style="font-size: 1.5em; margin-right: 10px;">📱</span>
         Connect Devices
       </h3>
-      <p style="margin: 0 0 15px 0; color: #666; line-height: 1.6;">
-        <strong>CalDAV URL:</strong> <code style="background: #e9ecef; padding: 2px 6px; border-radius: 4px;">http://127.0.0.1:5232</code><br>
+      <p style="margin: 0 0 15px 0; color: #475569; line-height: 1.6;">
+        <strong>CalDAV URL:</strong> <code style="background: rgba(8, 145, 178, 0.1); padding: 2px 6px; border-radius: 4px; color: #0e7490;">http://127.0.0.1:5232</code><br>
         <strong>Username:</strong> admin<br>
         <strong>Password:</strong> (leave empty)
       </p>
-      <p style="margin: 0; color: #666; font-size: 0.9em;">
+      <p style="margin: 0; color: #475569; font-size: 0.9em;">
         Connect iOS, Android, Thunderbird, or any CalDAV-compatible app.
       </p>
     </div>
     
-    <div class="info-card" style="background: #f8f9fa; padding: 25px; border-radius: 12px; border-left: 4px solid #FF9800;">
-      <h3 style="color: #2c3e50; margin: 0 0 15px 0; display: flex; align-items: center;">
+    <div class="info-card" style="background: linear-gradient(135deg, #f0f9ff, #e0f2fe); padding: 25px; border-radius: 12px; border-left: 4px solid #1e3a8a; box-shadow: 0 2px 8px rgba(30, 58, 138, 0.1);">
+      <h3 style="color: #1e3a8a; margin: 0 0 15px 0; display: flex; align-items: center;">
         <span style="font-size: 1.5em; margin-right: 10px;">🎯</span>
         Quick Test
       </h3>
-      <ol style="margin: 0; color: #666; line-height: 1.6; padding-left: 20px;">
-        <li>Visit <a href="http://127.0.0.1:5232" target="_blank" style="color: #2196F3;">Radicale Web Interface</a></li>
+      <ol style="margin: 0; color: #475569; line-height: 1.6; padding-left: 20px;">
+        <li>Visit <a href="http://127.0.0.1:5232" target="_blank" style="color: #0891b2; font-weight: 500;">Radicale Web Interface</a></li>
         <li>Create a test calendar event</li>
-        <li>Check your <a href="/calendar" style="color: #4CAF50;">Drupal calendar</a> to see it appear</li>
+        <li>Check your <a href="/calendar" style="color: #00874e; font-weight: 500;">Drupal calendar</a> to see it appear</li>
       </ol>
     </div>
 
@@ -56,38 +58,48 @@
     <h3 style="color: #2c3e50; margin: 0 0 20px 0;">Quick Links</h3>
     <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
       <a href="/calendar" 
-         style="background: #4CAF50; color: white; padding: 12px 20px; text-decoration: none; border-radius: 6px; transition: all 0.3s;">
+         style="background: linear-gradient(135deg, #0891b2, #0e7490); color: white; padding: 12px 20px; text-decoration: none; border-radius: 8px; transition: all 0.3s; box-shadow: 0 2px 8px rgba(8, 145, 178, 0.3); font-weight: 500;"
+         onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 12px rgba(8, 145, 178, 0.4)';"
+         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(8, 145, 178, 0.3)';">
          📅 Calendar View
       </a>
       <a href="http://127.0.0.1:5232" target="_blank"
-         style="background: #2196F3; color: white; padding: 12px 20px; text-decoration: none; border-radius: 6px; transition: all 0.3s;">
-         🔧 Radicale Server
+         style="background: linear-gradient(135deg, #1e3a8a, #1e40af); color: white; padding: 12px 20px; text-decoration: none; border-radius: 8px; transition: all 0.3s; box-shadow: 0 2px 8px rgba(30, 58, 138, 0.3); font-weight: 500;"
+         onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 12px rgba(30, 58, 138, 0.4)';"
+         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(30, 58, 138, 0.3)';">
+         � Radicale  Server
       </a>
       {% if logged_in %}
-        <span style="background: #e9ecef; color: #333; padding: 12px 20px; border-radius: 6px; margin-right: 10px;">
-          👋 Welcome, {{ user.getDisplayName() }}!
+        <span style="background: linear-gradient(135deg, #e0f2fe, #f0f9ff); color: #1e3a8a; padding: 12px 20px; border-radius: 8px; margin-right: 10px; border: 1px solid rgba(30, 58, 138, 0.2); font-weight: 500;">
+          � Welcoome, {{ user.getDisplayName() }}!
         </span>
         <a href="/user/logout" 
-           style="background: #dc3545; color: white; padding: 12px 20px; text-decoration: none; border-radius: 6px; transition: all 0.3s;">
+           style="background: linear-gradient(135deg, #dc2626, #b91c1c); color: white; padding: 12px 20px; text-decoration: none; border-radius: 8px; transition: all 0.3s; box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3); font-weight: 500;"
+           onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 12px rgba(220, 38, 38, 0.4)';"
+           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(220, 38, 38, 0.3)';">
            🚪 Logout
         </a>
       {% else %}
         <a href="/login?destination=/" 
-           style="background: #007bff; color: white; padding: 12px 20px; text-decoration: none; border-radius: 6px; transition: all 0.3s;">
+           style="background: linear-gradient(135deg, #1e3a8a, #1e40af); color: white; padding: 12px 20px; text-decoration: none; border-radius: 8px; transition: all 0.3s; box-shadow: 0 2px 8px rgba(30, 58, 138, 0.3); font-weight: 500;"
+           onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 12px rgba(30, 58, 138, 0.4)';"
+           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(30, 58, 138, 0.3)';">
            🔑 Login
         </a>
         <a href="/register" 
-           style="background: #28a745; color: white; padding: 12px 20px; text-decoration: none; border-radius: 6px; transition: all 0.3s;">
+           style="background: linear-gradient(135deg, #00874e, #065f46); color: white; padding: 12px 20px; text-decoration: none; border-radius: 8px; transition: all 0.3s; box-shadow: 0 2px 8px rgba(0, 135, 78, 0.3); font-weight: 500;"
+           onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 12px rgba(0, 135, 78, 0.4)';"
+           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0, 135, 78, 0.3)';">
            👤 Create Account
         </a>
       {% endif %}
     </div>
   </div>
 
-  <div class="development-info" style="background: #e8f5e8; padding: 20px; border-radius: 8px; margin-top: 30px; border: 1px solid #c8e6c9;">
-    <h4 style="color: #2e7d32; margin: 0 0 10px 0;">🛠️ Development Environment</h4>
-    <p style="margin: 0; color: #2e7d32; font-size: 0.9em;">
-      This template includes Drupal 11, Radicale CalDAV server, PostgreSQL database, and custom calendar integration. 
+  <div class="development-info" style="background: linear-gradient(135deg, #e0f2fe, #f0f9ff); padding: 20px; border-radius: 12px; margin-top: 30px; border: 1px solid rgba(8, 145, 178, 0.2); box-shadow: 0 2px 8px rgba(8, 145, 178, 0.1);">
+    <h4 style="color: #1e3a8a; margin: 0 0 10px 0; font-weight: 600;">🛠️ Development Environment</h4>
+    <p style="margin: 0; color: #475569; font-size: 0.9em; line-height: 1.5;">
+      This template includes <strong style="color: #1e3a8a;">Drupal 11</strong>, <strong style="color: #00874e;">Radicale CalDAV server</strong>, <strong style="color: #0891b2;">PostgreSQL database</strong>, and custom calendar integration. 
       Perfect for building calendar applications or learning CalDAV protocols.
     </p>
   </div>
