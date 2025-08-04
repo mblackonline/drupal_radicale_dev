@@ -45,7 +45,7 @@ class CalendarSubmissionForm extends ContentEntityForm {
     $actions['cancel'] = [
       '#type' => 'link',
       '#title' => $this->t('Cancel'),
-      '#url' => \Drupal\Core\Url::fromRoute('radicale_calendar.welcome'),
+      '#url' => \Drupal\Core\Url::fromRoute('radicale_calendar.calendar'),
       '#attributes' => [
         'class' => ['button', 'button--secondary'],
         'style' => 'margin-right: 1rem;',
@@ -127,7 +127,7 @@ class CalendarSubmissionForm extends ContentEntityForm {
     $buttons['cancel'] = [
       '#type' => 'link',
       '#title' => $this->t('← Cancel'),
-      '#url' => \Drupal\Core\Url::fromRoute('radicale_calendar.welcome'),
+      '#url' => \Drupal\Core\Url::fromRoute('radicale_calendar.calendar'),
       '#attributes' => [
         'class' => ['button', 'button--secondary'],
       ],
