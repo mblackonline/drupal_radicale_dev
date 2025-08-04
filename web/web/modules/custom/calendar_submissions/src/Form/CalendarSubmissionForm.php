@@ -47,6 +47,10 @@ class CalendarSubmissionForm extends ContentEntityForm {
     // Add CSS class to form.
     $form['#attributes']['class'][] = 'calendar-submission-form';
 
+    // Add navigation header.
+    $form['navigation'] = $this->buildNavigationHeader();
+    $form['navigation']['#weight'] = -20;
+
     // Add some helpful text for users.
     $form['help'] = [
       '#type' => 'markup',
@@ -81,6 +85,61 @@ class CalendarSubmissionForm extends ContentEntityForm {
     $form_state->setRedirect('entity.calendar_submission.canonical', ['calendar_submission' => $entity->id()]);
 
     return $status;
+  }
+
+  /**
+   * Build navigation header for the form.
+   *
+   * @return array
+   *   Render array for navigation header.
+   */
+  protected function buildNavigationHeader() {
+    $current_user = \Drupal::currentUser();
+    $navigation = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['calendar-submission-navigation']],
+    ];
+
+    $buttons = [];
+
+    // Cancel/Back button (primary navigation)
+    $buttons['cancel'] = [
+      '#type' => 'link',
+      '#title' => $this->t('← Cancel'),
+      '#url' => \Drupal\Core\Url::fromRoute('radicale_calendar.welcome'),
+      '#attributes' => [
+        'class' => ['button', 'button--secondary'],
+      ],
+    ];
+
+    // View Calendar
+    $buttons['view_calendar'] = [
+      '#type' => 'link',
+      '#title' => $this->t('View Calendar'),
+      '#url' => \Drupal\Core\Url::fromRoute('radicale_calendar.calendar'),
+      '#attributes' => [
+        'class' => ['button'],
+      ],
+    ];
+
+    // My Submissions (for logged-in users)
+    if ($current_user->isAuthenticated()) {
+      $buttons['my_submissions'] = [
+        '#type' => 'link',
+        '#title' => $this->t('My Submissions'),
+        '#url' => \Drupal\Core\Url::fromRoute('calendar_submissions.my_submissions'),
+        '#attributes' => [
+          'class' => ['button'],
+        ],
+      ];
+    }
+
+    $navigation['buttons'] = [
+      '#type' => 'actions',
+      '#attributes' => ['class' => ['navigation-buttons']],
+    ] + $buttons;
+
+    return $navigation;
   }
 
 }
