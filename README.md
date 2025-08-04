@@ -2,6 +2,10 @@
 
 A local development environment for Drupal 11 with integrated Radicale CalDAV server for calendar synchronization. Features a complete calendar submission and moderation workflow system where users can submit events for approval before they're published to the shared calendar.
 
+## Disclaimer
+
+This project was developed with AI assistance. The code and documentation are provided "as-is" without any warranties. Users should review and test all functionality before use in production environments.
+
 ## Screenshots
 
 **Drupal Welcome Page**
