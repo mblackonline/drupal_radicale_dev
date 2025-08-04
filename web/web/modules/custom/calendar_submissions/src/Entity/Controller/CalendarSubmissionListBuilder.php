@@ -36,6 +36,9 @@ class CalendarSubmissionListBuilder extends EntityListBuilder {
       ],
     ];
     
+    // Add navigation header for administrators.
+    $navigation = $this->buildAdminNavigationButtons();
+    
     // Add CSS classes for styling.
     $build['table']['#attributes']['class'][] = 'calendar-submissions-admin-table';
     
@@ -44,6 +47,7 @@ class CalendarSubmissionListBuilder extends EntityListBuilder {
       '#attached' => ['library' => ['calendar_submissions/calendar_submissions']],
       '#prefix' => '<div class="calendar-submissions-page-wrapper"><div class="calendar-submissions-content">',
       '#suffix' => '</div></div>',
+      'navigation' => $navigation,
       'header' => $header,
       'list' => $build,
     ];
@@ -93,6 +97,58 @@ class CalendarSubmissionListBuilder extends EntityListBuilder {
     $row['created'] = \Drupal::service('date.formatter')->format($entity->getCreatedTime(), 'short');
     
     return $row + parent::buildRow($entity);
+  }
+
+  /**
+   * Build navigation buttons for admin calendar submission pages.
+   *
+   * @return array
+   *   Render array for navigation buttons.
+   */
+  protected function buildAdminNavigationButtons() {
+    $navigation = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['calendar-submission-navigation']],
+    ];
+
+    $buttons = [];
+
+    // Back to Welcome
+    $buttons['back'] = [
+      '#type' => 'link',
+      '#title' => $this->t('← Back to Main'),
+      '#url' => \Drupal\Core\Url::fromRoute('radicale_calendar.welcome'),
+      '#attributes' => [
+        'class' => ['button', 'button--secondary'],
+      ],
+    ];
+
+    // Submit Event
+    $buttons['submit_event'] = [
+      '#type' => 'link',
+      '#title' => $this->t('Submit Event'),
+      '#url' => \Drupal\Core\Url::fromRoute('calendar_submissions.submit_event'),
+      '#attributes' => [
+        'class' => ['button'],
+      ],
+    ];
+
+    // View Calendar
+    $buttons['view_calendar'] = [
+      '#type' => 'link',
+      '#title' => $this->t('View Calendar'),
+      '#url' => \Drupal\Core\Url::fromRoute('radicale_calendar.calendar'),
+      '#attributes' => [
+        'class' => ['button', 'button--primary'],
+      ],
+    ];
+
+    $navigation['buttons'] = [
+      '#type' => 'actions',
+      '#attributes' => ['class' => ['navigation-buttons']],
+    ] + $buttons;
+
+    return $navigation;
   }
 
 }
