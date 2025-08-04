@@ -11,6 +11,9 @@
           <a href="/user/logout" class="logout-link">Logout</a>
         </div>
         <div class="action-buttons">
+          <a href="/welcome" class="button button--welcome">
+            ← Back to Welcome
+          </a>
           <a href="/submit-calendar-event" class="button button--primary">
             Submit Calendar Event
           </a>
@@ -26,6 +29,9 @@
       {% else %}
         <div class="login-message">
           <p>
+            <a href="/welcome" class="button button--welcome">
+              ← Back to Welcome
+            </a>
             <a href="/login?destination=/calendar" class="button button--secondary">Log In</a>
             <span class="divider">or</span>
             <a href="/register" class="button button--primary">Create Account</a>
