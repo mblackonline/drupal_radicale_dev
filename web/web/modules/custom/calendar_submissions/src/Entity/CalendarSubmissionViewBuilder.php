@@ -68,7 +68,7 @@ class CalendarSubmissionViewBuilder extends EntityViewBuilder {
       $buttons['manage_submissions'] = [
         '#type' => 'link',
         '#title' => $this->t('Manage Submissions'),
-        '#url' => \Drupal\Core\Url::fromRoute('calendar_submissions.admin_list'),
+        '#url' => \Drupal\Core\Url::fromRoute('entity.calendar_submission.collection'),
         '#attributes' => [
           'class' => ['button'],
         ],
