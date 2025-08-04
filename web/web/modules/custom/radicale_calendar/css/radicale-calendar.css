@@ -200,14 +200,29 @@
   /* Remove the old link styling for buttons */
 }
 
-.calendar-actions .login-message a.button {
-  /* Ensure button styling overrides link styling */
+.calendar-actions .login-message a.button--primary {
+  /* Primary buttons should have white text */
   color: white !important;
   text-decoration: none !important;
 }
 
-.calendar-actions .login-message a.button:hover {
+.calendar-actions .login-message a.button--primary:hover {
   color: white !important;
+  text-decoration: none !important;
+}
+
+.calendar-actions .login-message a.button--secondary {
+  /* Secondary buttons should have blue text on white background */
+  background-color: #FFFFFF !important;
+  color: #004360 !important;
+  border: 2px solid #004360 !important;
+  text-decoration: none !important;
+}
+
+.calendar-actions .login-message a.button--secondary:hover {
+  background-color: #f3f4f6 !important;
+  color: #004360 !important;
+  border-color: #004360 !important;
   text-decoration: none !important;
 }
 
