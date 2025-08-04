@@ -1,0 +1,386 @@
+/* Calendar Submissions Styling */
+
+/* Navigation buttons for submission detail pages */
+.calendar-submission-navigation {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navigation-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  margin: 0;
+}
+
+.navigation-buttons .button {
+  margin: 0 !important;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 4px;
+  text-decoration: none !important;
+  display: inline-block;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+  cursor: pointer;
+  line-height: 1.2;
+}
+
+/* Primary button styling */
+.navigation-buttons .button--primary {
+  background-color: #007bff;
+  color: white !important;
+  border-color: #007bff;
+}
+
+.navigation-buttons .button--primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+}
+
+/* Secondary button styling */
+.navigation-buttons .button--secondary {
+  background-color: #6c757d;
+  color: white !important;
+  border-color: #6c757d;
+}
+
+.navigation-buttons .button--secondary:hover {
+  background-color: #545b62;
+  border-color: #545b62;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(108, 117, 125, 0.3);
+}
+
+/* Default button styling */
+.navigation-buttons .button:not(.button--primary):not(.button--secondary) {
+  background-color: #ffffff;
+  color: #007bff !important;
+  border-color: #007bff;
+}
+
+.navigation-buttons .button:not(.button--primary):not(.button--secondary):hover {
+  background-color: #007bff;
+  color: white !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+}
+
+/* Focus states for accessibility */
+.navigation-buttons .button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+@media (max-width: 768px) {
+  .navigation-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .navigation-buttons .button {
+    text-align: center;
+    width: 100%;
+  }
+  
+  .calendar-submission-navigation {
+    padding: 1rem;
+  }
+}
+
+.calendar-submission-header,
+.my-submissions-header {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-left: 4px solid #007bff;
+}
+
+.calendar-submission-header h1,
+.my-submissions-header h1 {
+  margin: 0 0 0.5rem 0;
+  color: #007bff;
+}
+
+.calendar-submission-header .lead {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #6c757d;
+}
+
+/* Status badges */
+.status-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.status-submitted {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.status-under-review {
+  background-color: #cce5ff;
+  color: #004085;
+  border: 1px solid #99ccff;
+}
+
+.status-approved {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.status-rejected {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.status-published {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+
+/* Submissions table */
+.my-submissions-table {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.my-submissions-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  padding: 0.75rem;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.my-submissions-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #dee2e6;
+  vertical-align: middle;
+}
+
+.my-submissions-table .button--small {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.85rem;
+  margin-right: 0.25rem;
+}
+
+/* Form improvements */
+.calendar-submission-form .form-item {
+  margin-bottom: 1rem;
+}
+
+.calendar-submission-form .form-required {
+  color: #dc3545;
+}
+
+/* Queue status page */
+.queue-status-header {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-left: 4px solid #28a745;
+}
+
+.queue-status-header h1 {
+  margin: 0;
+  color: #28a745;
+}
+
+.queue-status-info {
+  background: #e9ecef;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.recent-activity-table {
+  width: 100%;
+}
+
+.recent-activity-table th,
+.recent-activity-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.recent-activity-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+/* Custom Login Form */
+.calendar-login-form {
+  max-width: 450px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #007bff;
+}
+
+.login-header h1 {
+  margin: 0 0 0.5rem 0;
+  color: #007bff;
+  font-size: 2rem;
+}
+
+.login-header .lead {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #6c757d;
+}
+
+.calendar-login-form .form-item {
+  margin-bottom: 1.5rem;
+}
+
+.calendar-login-form .form-item label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.calendar-login-form .form-item input[type="text"],
+.calendar-login-form .form-item input[type="password"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.calendar-login-form .form-item input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.calendar-login-form .button--link {
+  background: none;
+  color: #6c757d;
+  border: none;
+  text-decoration: underline;
+}
+
+.calendar-login-form .button--link:hover {
+  color: #333;
+}
+
+.calendar-login-form .form-actions {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.calendar-login-form .form-actions .button {
+  margin: 0 0.5rem 0.5rem 0;
+}
+
+/* Custom Registration Form */
+.calendar-registration-form {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.registration-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #007bff;
+}
+
+.registration-header h1 {
+  margin: 0 0 0.5rem 0;
+  color: #007bff;
+  font-size: 2rem;
+}
+
+.registration-header .lead {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #6c757d;
+}
+
+.calendar-registration-form .form-item {
+  margin-bottom: 1.5rem;
+}
+
+.calendar-registration-form .form-item label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.calendar-registration-form .form-item input[type="text"],
+.calendar-registration-form .form-item input[type="email"],
+.calendar-registration-form .form-item input[type="password"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.calendar-registration-form .form-item input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.calendar-registration-form .description {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-top: 0.25rem;
+}
+
+.calendar-registration-form .button--large {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.calendar-registration-form .form-actions {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* Help text styling */
+.messages--info {
+  background-color: #d1ecf1;
+  border-color: #bee5eb;
+  color: #0c5460;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+}

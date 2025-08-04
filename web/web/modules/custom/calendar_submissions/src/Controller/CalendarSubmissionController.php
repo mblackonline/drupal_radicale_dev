@@ -58,6 +58,9 @@ class CalendarSubmissionController extends ControllerBase {
   public function submitEventPage() {
     $build = [];
 
+    // Attach CSS library for consistent styling.
+    $build['#attached']['library'][] = 'calendar_submissions/calendar_submissions';
+
     // Page header with instructions.
     $build['header'] = [
       '#type' => 'container',
@@ -95,6 +98,9 @@ class CalendarSubmissionController extends ControllerBase {
    */
   public function mySubmissionsPage() {
     $build = [];
+
+    // Attach CSS library for consistent styling.
+    $build['#attached']['library'][] = 'calendar_submissions/calendar_submissions';
 
     $build['header'] = [
       '#type' => 'container',
@@ -211,6 +217,9 @@ class CalendarSubmissionController extends ControllerBase {
    */
   public function queueStatusPage() {
     $build = [];
+
+    // Attach CSS library for consistent styling.
+    $build['#attached']['library'][] = 'calendar_submissions/calendar_submissions';
 
     $build['header'] = [
       '#type' => 'container',

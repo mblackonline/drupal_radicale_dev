@@ -7,6 +7,7 @@
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\calendar_submissions\Entity\CalendarSubmissionInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
  * Implements hook_entity_presave().
@@ -66,5 +67,26 @@ function calendar_submissions_cron() {
     \Drupal::logger('calendar_submissions')->info('Processed @count calendar submission queue items during cron.', [
       '@count' => $processed,
     ]);
+  }
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function calendar_submissions_page_attachments_alter(array &$attachments) {
+  $route_match = \Drupal::routeMatch();
+  $route_name = $route_match->getRouteName();
+  
+  // Add CSS library to calendar submission related pages.
+  $calendar_submission_routes = [
+    'entity.calendar_submission.collection',
+    'entity.calendar_submission.canonical',
+    'entity.calendar_submission.edit_form',
+    'entity.calendar_submission.delete_form',
+    'entity.calendar_submission.add_form',
+  ];
+  
+  if (in_array($route_name, $calendar_submission_routes)) {
+    $attachments['#attached']['library'][] = 'calendar_submissions/calendar_submissions';
   }
 }

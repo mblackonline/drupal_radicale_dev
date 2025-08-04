@@ -14,14 +14,6 @@ calendar_submissions.my_submissions:
   requirements:
     _permission: 'add calendar submissions'
 
-calendar_submissions.admin_list:
-  path: '/admin/content/calendar-submissions'
-  defaults:
-    _entity_list: 'calendar_submission'
-    _title: 'Calendar Submissions'
-  requirements:
-    _permission: 'view calendar submissions'
-
 calendar_submissions.queue_status:
   path: '/admin/content/calendar-submissions/queue'
   defaults:

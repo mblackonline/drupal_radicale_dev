@@ -1,13 +1,31 @@
-/* Calendar Submissions Styling */
+/* Calendar Submissions Styling - Updated with Consistent Blue Theme */
+
+/* Import the same CSS custom properties as the welcome page */
+:root {
+    /* Chattanooga Blue Color Variables - matches radicale-calendar-custom-theme.css */
+    --primary-blue: #002A3D;
+    --primary-blue-hover: #004360;
+    --primary-blue-active: #001a26;
+    --white-button-bg: #FFFFFF;
+    --white-button-text: #004360;
+    --gray-button-bg: #f3f4f6;
+    --gray-button-text: #374151;
+    --gray-button-hover: #e5e7eb;
+    --light-blue-from: #f0f9ff;
+    --light-blue-to: #e0f2fe;
+    --neutral-bg: hsla(0, 0%, 82%, .3);
+    --neutral-text: grey;
+    --border-color: #ddd;
+}
 
 /* Navigation buttons for submission detail pages */
 .calendar-submission-navigation {
-  background: #f8f9fa;
+  background: linear-gradient(135deg, var(--light-blue-from), var(--light-blue-to));
   padding: 1.5rem;
   margin-bottom: 2rem;
   border-radius: 8px;
-  border: 1px solid #dee2e6;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 42, 61, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 42, 61, 0.08);
 }
 
 .navigation-buttons {
@@ -23,61 +41,64 @@
   padding: 0.75rem 1.25rem;
   font-size: 0.9rem;
   font-weight: 500;
-  border-radius: 4px;
+  border-radius: 8px;
   text-decoration: none !important;
   display: inline-block;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: 2px solid transparent;
   cursor: pointer;
   line-height: 1.2;
 }
 
-/* Primary button styling */
+/* Primary button styling - using your blue colors */
 .navigation-buttons .button--primary {
-  background-color: #007bff;
+  background-color: var(--primary-blue);
   color: white !important;
-  border-color: #007bff;
+  border-color: var(--primary-blue);
+  box-shadow: 0 2px 8px rgba(0, 42, 61, 0.2);
 }
 
 .navigation-buttons .button--primary:hover {
-  background-color: #0056b3;
-  border-color: #0056b3;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+  background-color: var(--primary-blue-hover);
+  border-color: var(--primary-blue-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 42, 61, 0.3);
 }
 
 /* Secondary button styling */
 .navigation-buttons .button--secondary {
-  background-color: #6c757d;
-  color: white !important;
-  border-color: #6c757d;
+  background-color: var(--white-button-bg);
+  color: var(--white-button-text) !important;
+  border-color: var(--white-button-text);
+  box-shadow: 0 2px 8px rgba(0, 67, 96, 0.2);
 }
 
 .navigation-buttons .button--secondary:hover {
-  background-color: #545b62;
-  border-color: #545b62;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(108, 117, 125, 0.3);
+  background-color: var(--gray-button-hover);
+  border-color: var(--white-button-text);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 67, 96, 0.3);
 }
 
 /* Default button styling */
 .navigation-buttons .button:not(.button--primary):not(.button--secondary) {
-  background-color: #ffffff;
-  color: #007bff !important;
-  border-color: #007bff;
+  background-color: var(--white-button-bg);
+  color: var(--primary-blue) !important;
+  border-color: var(--primary-blue);
+  box-shadow: 0 2px 8px rgba(0, 42, 61, 0.2);
 }
 
 .navigation-buttons .button:not(.button--primary):not(.button--secondary):hover {
-  background-color: #007bff;
+  background-color: var(--primary-blue);
   color: white !important;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 42, 61, 0.3);
 }
 
 /* Focus states for accessibility */
 .navigation-buttons .button:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+  box-shadow: 0 0 0 3px rgba(0, 42, 61, 0.25);
 }
 
 @media (max-width: 768px) {
@@ -100,23 +121,26 @@
 .my-submissions-header {
   margin-bottom: 2rem;
   padding: 1.5rem;
-  background: #f8f9fa;
-  border-left: 4px solid #007bff;
+  background: linear-gradient(135deg, var(--light-blue-from), var(--light-blue-to));
+  border-left: 4px solid var(--primary-blue);
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 42, 61, 0.08);
 }
 
 .calendar-submission-header h1,
 .my-submissions-header h1 {
   margin: 0 0 0.5rem 0;
-  color: #007bff;
+  color: var(--primary-blue);
+  text-shadow: 0 2px 4px rgba(0, 42, 61, 0.1);
 }
 
 .calendar-submission-header .lead {
   margin: 0;
   font-size: 1.1rem;
-  color: #6c757d;
+  color: var(--neutral-text);
 }
 
-/* Status badges */
+/* Status badges - using blue theme variations */
 .status-badge {
   padding: 0.25rem 0.5rem;
   border-radius: 0.25rem;
@@ -132,9 +156,9 @@
 }
 
 .status-under-review {
-  background-color: #cce5ff;
-  color: #004085;
-  border: 1px solid #99ccff;
+  background-color: var(--light-blue-from);
+  color: var(--primary-blue);
+  border: 1px solid rgba(0, 42, 61, 0.2);
 }
 
 .status-approved {
@@ -150,27 +174,32 @@
 }
 
 .status-published {
-  background-color: #d1ecf1;
-  color: #0c5460;
-  border: 1px solid #bee5eb;
+  background-color: var(--light-blue-to);
+  color: var(--primary-blue);
+  border: 1px solid rgba(0, 42, 61, 0.2);
 }
 
 /* Submissions table */
 .my-submissions-table {
   width: 100%;
   margin-bottom: 1rem;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 42, 61, 0.08);
 }
 
 .my-submissions-table th {
-  background-color: #f8f9fa;
+  background: linear-gradient(135deg, var(--light-blue-from), var(--light-blue-to));
+  color: var(--primary-blue);
   font-weight: 600;
   padding: 0.75rem;
-  border-bottom: 2px solid #dee2e6;
+  border-bottom: 2px solid rgba(0, 42, 61, 0.1);
 }
 
 .my-submissions-table td {
   padding: 0.75rem;
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid rgba(0, 42, 61, 0.05);
   vertical-align: middle;
 }
 
@@ -178,9 +207,29 @@
   padding: 0.25rem 0.5rem;
   font-size: 0.85rem;
   margin-right: 0.25rem;
+  background-color: var(--primary-blue);
+  color: white;
+  border: 1px solid var(--primary-blue);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.my-submissions-table .button--small:hover {
+  background-color: var(--primary-blue-hover);
+  border-color: var(--primary-blue-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 42, 61, 0.3);
 }
 
 /* Form improvements */
+.calendar-submission-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 42, 61, 0.08);
+  border: 1px solid rgba(0, 42, 61, 0.1);
+}
+
 .calendar-submission-form .form-item {
   margin-bottom: 1rem;
 }
@@ -189,38 +238,75 @@
   color: #dc3545;
 }
 
+.calendar-submission-form label {
+  color: var(--primary-blue);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.calendar-submission-form input[type="text"],
+.calendar-submission-form input[type="email"],
+.calendar-submission-form input[type="datetime-local"],
+.calendar-submission-form textarea,
+.calendar-submission-form select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid rgba(0, 42, 61, 0.1);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.calendar-submission-form input:focus,
+.calendar-submission-form textarea:focus,
+.calendar-submission-form select:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(0, 42, 61, 0.1);
+}
+
 /* Queue status page */
 .queue-status-header {
   margin-bottom: 2rem;
   padding: 1.5rem;
-  background: #f8f9fa;
-  border-left: 4px solid #28a745;
+  background: linear-gradient(135deg, var(--light-blue-from), var(--light-blue-to));
+  border-left: 4px solid var(--primary-blue);
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 42, 61, 0.08);
 }
 
 .queue-status-header h1 {
   margin: 0;
-  color: #28a745;
+  color: var(--primary-blue);
+  text-shadow: 0 2px 4px rgba(0, 42, 61, 0.1);
 }
 
 .queue-status-info {
-  background: #e9ecef;
+  background: var(--light-blue-from);
   padding: 1rem;
-  border-radius: 0.25rem;
+  border-radius: 8px;
   margin-bottom: 1rem;
+  border: 1px solid rgba(0, 42, 61, 0.1);
 }
 
 .recent-activity-table {
   width: 100%;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 42, 61, 0.08);
 }
 
 .recent-activity-table th,
 .recent-activity-table td {
   padding: 0.75rem;
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid rgba(0, 42, 61, 0.05);
 }
 
 .recent-activity-table th {
-  background-color: #f8f9fa;
+  background: linear-gradient(135deg, var(--light-blue-from), var(--light-blue-to));
+  color: var(--primary-blue);
   font-weight: 600;
 }
 
@@ -229,28 +315,30 @@
   max-width: 450px;
   margin: 2rem auto;
   padding: 2rem;
-  background: #f8f9fa;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 42, 61, 0.08);
+  border: 1px solid rgba(0, 42, 61, 0.1);
 }
 
 .login-header {
   text-align: center;
   margin-bottom: 2rem;
   padding-bottom: 1rem;
-  border-bottom: 2px solid #007bff;
+  border-bottom: 2px solid var(--primary-blue);
 }
 
 .login-header h1 {
   margin: 0 0 0.5rem 0;
-  color: #007bff;
+  color: var(--primary-blue);
   font-size: 2rem;
+  text-shadow: 0 2px 4px rgba(0, 42, 61, 0.1);
 }
 
 .login-header .lead {
   margin: 0;
   font-size: 1.1rem;
-  color: #6c757d;
+  color: var(--neutral-text);
 }
 
 .calendar-login-form .form-item {
@@ -259,7 +347,7 @@
 
 .calendar-login-form .form-item label {
   font-weight: 600;
-  color: #333;
+  color: var(--primary-blue);
   margin-bottom: 0.5rem;
   display: block;
 }
@@ -268,27 +356,27 @@
 .calendar-login-form .form-item input[type="password"] {
   width: 100%;
   padding: 0.75rem;
-  border: 2px solid #dee2e6;
-  border-radius: 4px;
+  border: 2px solid rgba(0, 42, 61, 0.1);
+  border-radius: 8px;
   font-size: 1rem;
   transition: border-color 0.3s ease;
 }
 
 .calendar-login-form .form-item input:focus {
   outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(0, 42, 61, 0.1);
 }
 
 .calendar-login-form .button--link {
   background: none;
-  color: #6c757d;
+  color: var(--neutral-text);
   border: none;
   text-decoration: underline;
 }
 
 .calendar-login-form .button--link:hover {
-  color: #333;
+  color: var(--primary-blue);
 }
 
 .calendar-login-form .form-actions {
@@ -298,6 +386,21 @@
 
 .calendar-login-form .form-actions .button {
   margin: 0 0.5rem 0.5rem 0;
+  background-color: var(--primary-blue);
+  color: white;
+  border: 2px solid var(--primary-blue);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 42, 61, 0.2);
+}
+
+.calendar-login-form .form-actions .button:hover {
+  background-color: var(--primary-blue-hover);
+  border-color: var(--primary-blue-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 42, 61, 0.3);
 }
 
 /* Custom Registration Form */
@@ -305,28 +408,30 @@
   max-width: 500px;
   margin: 2rem auto;
   padding: 2rem;
-  background: #f8f9fa;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 42, 61, 0.08);
+  border: 1px solid rgba(0, 42, 61, 0.1);
 }
 
 .registration-header {
   text-align: center;
   margin-bottom: 2rem;
   padding-bottom: 1rem;
-  border-bottom: 2px solid #007bff;
+  border-bottom: 2px solid var(--primary-blue);
 }
 
 .registration-header h1 {
   margin: 0 0 0.5rem 0;
-  color: #007bff;
+  color: var(--primary-blue);
   font-size: 2rem;
+  text-shadow: 0 2px 4px rgba(0, 42, 61, 0.1);
 }
 
 .registration-header .lead {
   margin: 0;
   font-size: 1.1rem;
-  color: #6c757d;
+  color: var(--neutral-text);
 }
 
 .calendar-registration-form .form-item {
@@ -335,7 +440,7 @@
 
 .calendar-registration-form .form-item label {
   font-weight: 600;
-  color: #333;
+  color: var(--primary-blue);
   margin-bottom: 0.5rem;
   display: block;
 }
@@ -345,21 +450,21 @@
 .calendar-registration-form .form-item input[type="password"] {
   width: 100%;
   padding: 0.75rem;
-  border: 2px solid #dee2e6;
-  border-radius: 4px;
+  border: 2px solid rgba(0, 42, 61, 0.1);
+  border-radius: 8px;
   font-size: 1rem;
   transition: border-color 0.3s ease;
 }
 
 .calendar-registration-form .form-item input:focus {
   outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(0, 42, 61, 0.1);
 }
 
 .calendar-registration-form .description {
   font-size: 0.9rem;
-  color: #6c757d;
+  color: var(--neutral-text);
   margin-top: 0.25rem;
 }
 
@@ -368,6 +473,20 @@
   font-size: 1.1rem;
   width: 100%;
   margin-bottom: 1rem;
+  background-color: var(--primary-blue);
+  color: white;
+  border: 2px solid var(--primary-blue);
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 42, 61, 0.2);
+}
+
+.calendar-registration-form .button--large:hover {
+  background-color: var(--primary-blue-hover);
+  border-color: var(--primary-blue-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 42, 61, 0.3);
 }
 
 .calendar-registration-form .form-actions {
@@ -377,10 +496,99 @@
 
 /* Help text styling */
 .messages--info {
-  background-color: #d1ecf1;
-  border-color: #bee5eb;
-  color: #0c5460;
+  background: linear-gradient(135deg, var(--light-blue-from), var(--light-blue-to));
+  border: 1px solid rgba(0, 42, 61, 0.2);
+  color: var(--primary-blue);
   padding: 1rem;
-  border-radius: 0.25rem;
+  border-radius: 8px;
   margin-bottom: 1rem;
+  border-left: 4px solid var(--primary-blue);
+}
+
+/* Page wrapper styling for consistent background */
+.calendar-submissions-page-wrapper {
+  background: linear-gradient(135deg, var(--light-blue-from), var(--light-blue-to));
+  min-height: 100vh;
+  padding: 2rem 0;
+}
+
+.calendar-submissions-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Admin table styling */
+.calendar-submissions-admin-table {
+  width: 100%;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 42, 61, 0.08);
+  border: 1px solid rgba(0, 42, 61, 0.1);
+}
+
+.calendar-submissions-admin-table th {
+  background: linear-gradient(135deg, var(--light-blue-from), var(--light-blue-to));
+  color: var(--primary-blue);
+  font-weight: 600;
+  padding: 1rem 0.75rem;
+  border-bottom: 2px solid rgba(0, 42, 61, 0.1);
+  text-align: left;
+}
+
+.calendar-submissions-admin-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid rgba(0, 42, 61, 0.05);
+  vertical-align: middle;
+}
+
+.calendar-submissions-admin-table .operations .button {
+  background-color: var(--primary-blue);
+  color: white;
+  border: 1px solid var(--primary-blue);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+.calendar-submissions-admin-table .operations .button:hover {
+  background-color: var(--primary-blue-hover);
+  border-color: var(--primary-blue-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 42, 61, 0.3);
+}
+
+/* Responsive design enhancements */
+@media (max-width: 768px) {
+  .calendar-submissions-content {
+    padding: 0 1rem;
+  }
+  
+  .calendar-submission-form,
+  .calendar-login-form,
+  .calendar-registration-form {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .my-submissions-table,
+  .recent-activity-table,
+  .calendar-submissions-admin-table {
+    font-size: 0.9rem;
+  }
+  
+  .my-submissions-table th,
+  .my-submissions-table td,
+  .recent-activity-table th,
+  .recent-activity-table td,
+  .calendar-submissions-admin-table th,
+  .calendar-submissions-admin-table td {
+    padding: 0.5rem;
+  }
 }
