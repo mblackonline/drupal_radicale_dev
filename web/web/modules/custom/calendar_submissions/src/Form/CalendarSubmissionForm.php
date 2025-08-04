@@ -38,6 +38,27 @@ class CalendarSubmissionForm extends ContentEntityForm {
   /**
    * {@inheritdoc}
    */
+  protected function actions(array $form, FormStateInterface $form_state) {
+    $actions = parent::actions($form, $form_state);
+
+    // Add Cancel button to the left of Submit button.
+    $actions['cancel'] = [
+      '#type' => 'link',
+      '#title' => $this->t('Cancel'),
+      '#url' => \Drupal\Core\Url::fromRoute('radicale_calendar.welcome'),
+      '#attributes' => [
+        'class' => ['button', 'button--secondary'],
+        'style' => 'margin-right: 1rem;',
+      ],
+      '#weight' => -10, // Ensure it appears before Submit
+    ];
+
+    return $actions;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form = parent::buildForm($form, $form_state);
 
