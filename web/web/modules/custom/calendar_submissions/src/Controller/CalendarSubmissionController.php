@@ -121,6 +121,10 @@ class CalendarSubmissionController extends ControllerBase {
     $current_user = $this->currentUser();
     $storage = $this->entityTypeManager->getStorage('calendar_submission');
     
+    // Reset entity storage cache to ensure fresh query results
+    // This prevents caching issues where user submissions don't appear
+    $storage->resetCache();
+    
     $query = $storage->getQuery()
       ->condition('user_id', $current_user->id())
       ->sort('created', 'DESC')
