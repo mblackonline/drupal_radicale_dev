@@ -102,6 +102,10 @@ class CalendarSubmissionController extends ControllerBase {
     // Attach CSS library for consistent styling.
     $build['#attached']['library'][] = 'calendar_submissions/calendar_submissions';
 
+    // Add navigation header.
+    $build['navigation'] = $this->buildNavigationButtons();
+    $build['navigation']['#weight'] = -30;
+
     $build['header'] = [
       '#type' => 'container',
       '#attributes' => ['class' => ['my-submissions-header']],
@@ -355,6 +359,59 @@ class CalendarSubmissionController extends ControllerBase {
     }
     
     return $this->redirect('calendar_submissions.queue_status');
+  }
+
+  /**
+   * Build navigation buttons for calendar submission pages.
+   *
+   * @return array
+   *   Render array for navigation buttons.
+   */
+  protected function buildNavigationButtons() {
+    $current_user = $this->currentUser();
+    $navigation = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['calendar-submission-navigation']],
+    ];
+
+    $buttons = [];
+
+    // Back to Welcome
+    $buttons['back'] = [
+      '#type' => 'link',
+      '#title' => $this->t('← Back to Main'),
+      '#url' => \Drupal\Core\Url::fromRoute('radicale_calendar.welcome'),
+      '#attributes' => [
+        'class' => ['button', 'button--secondary'],
+      ],
+    ];
+
+    // Submit New Event 
+    $buttons['submit_event'] = [
+      '#type' => 'link',
+      '#title' => $this->t('Submit New Event'),
+      '#url' => \Drupal\Core\Url::fromRoute('calendar_submissions.submit_event'),
+      '#attributes' => [
+        'class' => ['button', 'button--primary'],
+      ],
+    ];
+
+    // View Calendar
+    $buttons['view_calendar'] = [
+      '#type' => 'link',
+      '#title' => $this->t('View Calendar'),
+      '#url' => \Drupal\Core\Url::fromRoute('radicale_calendar.calendar'),
+      '#attributes' => [
+        'class' => ['button'],
+      ],
+    ];
+
+    $navigation['buttons'] = [
+      '#type' => 'actions',
+      '#attributes' => ['class' => ['navigation-buttons']],
+    ] + $buttons;
+
+    return $navigation;
   }
 
 }
