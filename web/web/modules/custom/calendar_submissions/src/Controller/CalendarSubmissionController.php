@@ -98,6 +98,19 @@ class CalendarSubmissionController extends ControllerBase {
    */
   public function mySubmissionsPage() {
     $build = [];
+    $current_user = $this->currentUser();
+    $user_id = $current_user->id();
+
+    // Add cache tags and contexts for proper cache invalidation
+    $build['#cache'] = [
+      'contexts' => ['user'],
+      'tags' => [
+        'calendar_submission_list',
+        'calendar_submission_list:' . $user_id,
+        'user:' . $user_id,
+      ],
+      'max-age' => 0, // Don't cache this page - always fresh data
+    ];
 
     // Attach CSS library for consistent styling.
     $build['#attached']['library'][] = 'calendar_submissions/calendar_submissions';
@@ -118,7 +131,6 @@ class CalendarSubmissionController extends ControllerBase {
     ];
 
     // Get current user's submissions.
-    $current_user = $this->currentUser();
     $storage = $this->entityTypeManager->getStorage('calendar_submission');
     
     // Reset entity storage cache to ensure fresh query results
@@ -126,7 +138,7 @@ class CalendarSubmissionController extends ControllerBase {
     $storage->resetCache();
     
     $query = $storage->getQuery()
-      ->condition('user_id', $current_user->id())
+      ->condition('user_id', $user_id)
       ->sort('created', 'DESC')
       ->accessCheck(TRUE);
     
@@ -155,6 +167,9 @@ class CalendarSubmissionController extends ControllerBase {
 
     $rows = [];
     foreach ($entities as $entity) {
+      // Add individual entity cache tags to the page cache
+      $build['#cache']['tags'][] = 'calendar_submission:' . $entity->id();
+      
       $start_date = $entity->get('start_date')->value;
       $start_formatted = $start_date ? \Drupal::service('date.formatter')->format(strtotime($start_date), 'medium') : '';
       

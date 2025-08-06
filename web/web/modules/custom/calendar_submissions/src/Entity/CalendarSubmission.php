@@ -194,6 +194,24 @@ class CalendarSubmission extends ContentEntityBase implements CalendarSubmission
   /**
    * {@inheritdoc}
    */
+  public function postSave(EntityStorageInterface $storage, $update = TRUE) {
+    parent::postSave($storage, $update);
+
+    // Invalidate cache tags when entity is saved
+    $cache_tags = [];
+    $cache_tags[] = 'calendar_submission_list';
+    $cache_tags[] = 'calendar_submission_list:' . $this->getOwnerId();
+    $cache_tags[] = 'calendar_submission:' . $this->id();
+    
+    // Also invalidate user-specific cache
+    $cache_tags[] = 'user:' . $this->getOwnerId();
+    
+    \Drupal::service('cache_tags.invalidator')->invalidateTags($cache_tags);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
 

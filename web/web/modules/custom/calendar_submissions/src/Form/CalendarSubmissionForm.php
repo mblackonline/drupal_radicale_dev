@@ -87,8 +87,22 @@ class CalendarSubmissionForm extends ContentEntityForm {
    */
   public function save(array $form, FormStateInterface $form_state) {
     $entity = $this->entity;
+    $is_new = $entity->isNew();
+    $owner_id = $entity->getOwnerId();
 
     $status = parent::save($form, $form_state);
+
+    // Invalidate relevant cache tags when entity is saved
+    $cache_tags = [];
+    $cache_tags[] = 'calendar_submission_list';
+    $cache_tags[] = 'calendar_submission_list:' . $owner_id;
+    
+    if (!$is_new) {
+      $cache_tags[] = 'calendar_submission:' . $entity->id();
+    }
+    
+    // Invalidate the cache tags
+    \Drupal::service('cache_tags.invalidator')->invalidateTags($cache_tags);
 
     switch ($status) {
       case SAVED_NEW:
