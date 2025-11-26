@@ -15,7 +15,7 @@ echo "WARNING: This will stop PostgreSQL processes and remove socket files."
 echo "IMPORTANT: Exit the devenv shell before running this script!"
 echo ""
 if [ -n "$DEVENV_STATE" ] || [ -n "$DEVENV_ROOT" ]; then
-    echo "❌ ERROR: You are currently in a devenv shell!"
+    echo "ERROR: You are currently in a devenv shell!"
     echo "Please exit the devenv shell first by typing: exit"
     echo "Then run this script again."
     exit 1
@@ -166,4 +166,4 @@ else
 fi
 
 echo ""
-echo "✅ Cleanup complete!"
+echo "Cleanup complete!"

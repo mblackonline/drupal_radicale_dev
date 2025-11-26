@@ -46,7 +46,7 @@ else
 fi
 
 echo ""
-echo "✅ Setup complete!"
+echo "Setup complete!"
 echo ""
 echo "Next steps:"
 echo "  1. Run: devenv shell"
