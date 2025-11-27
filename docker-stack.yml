@@ -161,7 +161,7 @@ services:
   radicale:
     image: tomsquest/docker-radicale:latest
     volumes:
-      - ./docker/radicale/config:/config/config:ro
+      - /opt/drupal-calendar/radicale/config:/config/config:ro
       - radicale_data:/data
     networks:
       - traefik_net
