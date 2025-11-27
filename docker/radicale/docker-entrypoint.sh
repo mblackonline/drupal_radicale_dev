@@ -26,5 +26,5 @@ fi
 # Ensure data directory has correct permissions
 chown -R radicale:radicale /data 2>/dev/null || true
 
-# Start Radicale
-exec python3 -m radicale --config "$CONFIG_FILE"
+# Start Radicale (use the same command as base image)
+exec /venv/bin/python3 -m radicale --config "$CONFIG_FILE"
