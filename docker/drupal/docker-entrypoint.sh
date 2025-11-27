@@ -78,10 +78,12 @@ setup_permissions() {
     log_info "Setting up file permissions..."
     
     mkdir -p "$files_dir"
+    chown www-data:www-data "$files_dir"
     chmod 755 "$files_dir"
     
     # Ensure private files directory exists
     mkdir -p "/var/www/html/web/sites/default/private"
+    chown www-data:www-data "/var/www/html/web/sites/default/private"
     chmod 755 "/var/www/html/web/sites/default/private"
 }
 
