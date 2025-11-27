@@ -1,0 +1,42 @@
+# Radicale CalDAV Server Configuration
+# For Docker Swarm deployment with authentication
+
+[server]
+# Listen on all interfaces within container
+hosts = 0.0.0.0:5232
+
+# Max number of parallel connections
+max_connections = 20
+
+# Max request body size (10MB)
+max_content_length = 10000000
+
+# Request timeout
+timeout = 30
+
+[auth]
+# Use htpasswd file for authentication (bcrypt hashed)
+type = htpasswd
+htpasswd_filename = /data/users
+htpasswd_encryption = bcrypt
+
+[rights]
+# Users can only access their own collections
+type = owner_only
+
+[storage]
+# Filesystem storage
+type = multifilesystem
+filesystem_folder = /data/collections
+
+[logging]
+level = info
+mask_passwords = True
+
+[headers]
+# CORS headers for web access
+Access-Control-Allow-Origin = *
+Access-Control-Allow-Methods = GET, POST, PUT, DELETE, PROPFIND, PROPPATCH, REPORT, MKCOL, MKCALENDAR, OPTIONS
+Access-Control-Allow-Headers = Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control, Authorization
+Access-Control-Expose-Headers = Etag
+Access-Control-Max-Age = 3600

@@ -1,0 +1,193 @@
+version: '3.8'
+
+# =============================================================================
+# Drupal + Radicale CalDAV Stack for Docker Swarm
+# =============================================================================
+# 
+# Prerequisites:
+#   1. Docker Swarm initialized: docker swarm init
+#   2. External network exists: docker network create --driver=overlay --attachable traefik_net
+#   3. Traefik stack deployed (see Portainer_Staging_Setup_Guide.md)
+#   4. Environment file created from .env.example
+#
+# Deployment:
+#   docker stack deploy -c docker-stack.yml drupal-calendar
+#
+# =============================================================================
+
+networks:
+  traefik_net:
+    external: true
+  internal:
+    driver: overlay
+    internal: true
+
+volumes:
+  postgres_data:
+  drupal_files:
+  radicale_data:
+
+services:
+  # ===========================================================================
+  # PostgreSQL Database
+  # ===========================================================================
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-drupal}
+      POSTGRES_USER: ${POSTGRES_USER:-drupal}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - internal
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-drupal} -d ${POSTGRES_DB:-drupal}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # ===========================================================================
+  # Drupal PHP-FPM Application
+  # ===========================================================================
+  drupal:
+    image: ${REGISTRY:-}drupal-radicale:${VERSION:-latest}
+    build:
+      context: .
+      dockerfile: docker/drupal/Dockerfile
+    environment:
+      # Database connection
+      DRUPAL_DB_HOST: postgres
+      DRUPAL_DB_PORT: 5432
+      DRUPAL_DB_NAME: ${POSTGRES_DB:-drupal}
+      DRUPAL_DB_USER: ${POSTGRES_USER:-drupal}
+      DRUPAL_DB_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+      # Radicale connection (use public URL for proper auth)
+      RADICALE_SERVER_URL: https://radicale.staging.chatthub.online
+      RADICALE_USERNAME: ${RADICALE_ADMIN_USER:-admin}
+      RADICALE_PASSWORD: ${RADICALE_ADMIN_PASSWORD:?RADICALE_ADMIN_PASSWORD is required}
+      # Drupal settings
+      DRUPAL_HASH_SALT: ${DRUPAL_HASH_SALT:?DRUPAL_HASH_SALT is required}
+      DRUPAL_TRUSTED_HOST: drupal.staging.chatthub.online
+    volumes:
+      - drupal_files:/var/www/html/web/sites/default/files
+    networks:
+      - internal
+      - traefik_net
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+    healthcheck:
+      test: ["CMD-SHELL", "SCRIPT_NAME=/ping SCRIPT_FILENAME=/ping REQUEST_METHOD=GET cgi-fcgi -bind -connect 127.0.0.1:9000 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    depends_on:
+      - postgres
+
+  # ===========================================================================
+  # Nginx Web Server (serves Drupal)
+  # ===========================================================================
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - drupal_files:/var/www/html/web/sites/default/files:ro
+    networks:
+      - internal
+      - traefik_net
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      labels:
+        - "traefik.enable=true"
+        # HTTP Router
+        - "traefik.http.routers.drupal.rule=Host(`drupal.staging.chatthub.online`)"
+        - "traefik.http.routers.drupal.entrypoints=websecure"
+        - "traefik.http.routers.drupal.tls=true"
+        - "traefik.http.routers.drupal.tls.certresolver=le"
+        # Service
+        - "traefik.http.services.drupal.loadbalancer.server.port=80"
+        - "traefik.docker.network=traefik_net"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost/robots.txt"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    depends_on:
+      - drupal
+
+  # ===========================================================================
+  # Radicale CalDAV Server
+  # ===========================================================================
+  radicale:
+    image: tomsquest/docker-radicale:latest
+    volumes:
+      - ./docker/radicale/config:/config/config:ro
+      - radicale_data:/data
+    networks:
+      - traefik_net
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      labels:
+        - "traefik.enable=true"
+        # HTTP Router
+        - "traefik.http.routers.radicale.rule=Host(`radicale.staging.chatthub.online`)"
+        - "traefik.http.routers.radicale.entrypoints=websecure"
+        - "traefik.http.routers.radicale.tls=true"
+        - "traefik.http.routers.radicale.tls.certresolver=le"
+        # Service
+        - "traefik.http.services.radicale.loadbalancer.server.port=5232"
+        - "traefik.docker.network=traefik_net"
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5232/.web/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
