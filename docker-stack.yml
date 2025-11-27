@@ -147,7 +147,7 @@ services:
         - "traefik.http.services.drupal.loadbalancer.server.port=80"
         - "traefik.docker.network=traefik_net"
     healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://localhost/nginx-health"]
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1/nginx-health"]
       interval: 30s
       timeout: 10s
       retries: 3
