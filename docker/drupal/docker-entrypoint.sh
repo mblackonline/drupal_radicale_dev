@@ -75,7 +75,7 @@ reset_settings_for_fresh_install() {
         log_info "Database is empty - checking if settings.php needs reset..."
         
         # Check if settings.php has hardcoded database config (sign of previous install)
-        if [ -f "$settings_file" ] && grep -q "^\$databases\['default'\]\['default'\]" "$settings_file"; then
+        if [ -f "$settings_file" ] && grep -q "\$databases\['default'\]\['default'\] = array" "$settings_file"; then
             log_info "Found stale database config in settings.php - resetting for fresh install..."
             cp "$default_settings" "$settings_file"
             chown www-data:www-data "$settings_file"
