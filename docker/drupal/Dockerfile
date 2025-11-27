@@ -136,11 +136,9 @@ RUN mkdir -p /var/www/html/web/sites/default/files \
     && chmod 755 /var/www/html/web/sites/default/files \
     && chmod 755 /var/www/html/web/sites/default/private
 
-# Create settings.php from default if not exists
-RUN if [ -f /var/www/html/web/sites/default/default.settings.php ] && [ ! -f /var/www/html/web/sites/default/settings.php ]; then \
-        cp /var/www/html/web/sites/default/default.settings.php /var/www/html/web/sites/default/settings.php; \
-    fi \
-    && chmod 644 /var/www/html/web/sites/default/settings.php 2>/dev/null || true
+# Always reset settings.php to default (prevents stale config from build environment)
+RUN cp /var/www/html/web/sites/default/default.settings.php /var/www/html/web/sites/default/settings.php \
+    && chmod 644 /var/www/html/web/sites/default/settings.php
 
 # Set ownership
 RUN chown -R www-data:www-data /var/www/html
