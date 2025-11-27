@@ -5,8 +5,9 @@
 #
 # This script runs before PHP-FPM starts and ensures:
 # 1. Database is available
-# 2. Drupal settings include Docker environment configuration
-# 3. File permissions are correct
+# 2. Settings.php is reset if database is empty (fresh install)
+# 3. Drupal settings include Docker environment configuration
+# 4. File permissions are correct
 #
 # =============================================================================
 
@@ -46,6 +47,44 @@ wait_for_db() {
     
     log_error "Database not available after $max_attempts attempts"
     return 1
+}
+
+# Check if database is empty (no Drupal tables)
+is_db_empty() {
+    local host="${DRUPAL_DB_HOST:-postgres}"
+    local port="${DRUPAL_DB_PORT:-5432}"
+    local db="${DRUPAL_DB_NAME:-drupal}"
+    local user="${DRUPAL_DB_USER:-drupal}"
+    
+    # Check if any tables exist in public schema
+    local table_count=$(PGPASSWORD="${DRUPAL_DB_PASSWORD}" psql -h "$host" -p "$port" -U "$user" -d "$db" -t -c "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'public';" 2>/dev/null | tr -d ' ')
+    
+    if [ "$table_count" = "0" ] || [ -z "$table_count" ]; then
+        return 0  # Empty
+    else
+        return 1  # Has tables
+    fi
+}
+
+# Reset settings.php to default for fresh install
+reset_settings_for_fresh_install() {
+    local settings_file="/var/www/html/web/sites/default/settings.php"
+    local default_settings="/var/www/html/web/sites/default/default.settings.php"
+    
+    if is_db_empty; then
+        log_info "Database is empty - checking if settings.php needs reset..."
+        
+        # Check if settings.php has hardcoded database config (sign of previous install)
+        if [ -f "$settings_file" ] && grep -q "^\$databases\['default'\]\['default'\]" "$settings_file"; then
+            log_info "Found stale database config in settings.php - resetting for fresh install..."
+            cp "$default_settings" "$settings_file"
+            chown www-data:www-data "$settings_file"
+            chmod 644 "$settings_file"
+            log_info "settings.php reset to default"
+        fi
+    else
+        log_info "Database has existing tables - keeping current settings.php"
+    fi
 }
 
 # Ensure settings.docker.php is included in settings.php
@@ -94,6 +133,7 @@ main() {
     # Wait for database if configured
     if [ -n "$DRUPAL_DB_HOST" ]; then
         wait_for_db
+        reset_settings_for_fresh_install
     fi
     
     # Setup Drupal settings

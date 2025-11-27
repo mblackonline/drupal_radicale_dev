@@ -66,10 +66,10 @@ services:
   # Drupal PHP-FPM Application
   # ===========================================================================
   drupal:
-    image: ${REGISTRY:-}drupal-radicale:${VERSION:-latest}
-    build:
-      context: .
-      dockerfile: docker/drupal/Dockerfile
+    image: catmanmatt/drupal-calendar-app:${VERSION:-latest}
+    # build:
+    #   context: .
+    #   dockerfile: docker/drupal/Dockerfile
     environment:
       # Database connection
       DRUPAL_DB_HOST: postgres
@@ -117,10 +117,10 @@ services:
   # Static files baked into image, only user uploads shared via volume
   # ===========================================================================
   nginx:
-    image: ${REGISTRY:-}drupal-nginx:${VERSION:-latest}
-    build:
-      context: .
-      dockerfile: docker/nginx/Dockerfile
+    image: catmanmatt/drupal-calendar-nginx:${VERSION:-latest}
+    # build:
+    #   context: .
+    #   dockerfile: docker/nginx/Dockerfile
     volumes:
       # Only user uploads need to be shared - static assets are in the image
       - drupal_files:/var/www/html/web/sites/default/files:ro
@@ -159,9 +159,15 @@ services:
   # Radicale CalDAV Server
   # ===========================================================================
   radicale:
-    image: tomsquest/docker-radicale:latest
+    image: catmanmatt/drupal-calendar-radicale:${VERSION:-latest}
+    # build:
+    #   context: .
+    #   dockerfile: docker/radicale/Dockerfile
+    environment:
+      RADICALE_ADMIN_USER: ${RADICALE_ADMIN_USER:-admin}
+      RADICALE_ADMIN_PASSWORD: ${RADICALE_ADMIN_PASSWORD:?RADICALE_ADMIN_PASSWORD is required}
     volumes:
-      - /opt/drupal-calendar/radicale/config:/config/config:ro
+      # Config is baked into image, only data needs persistence
       - radicale_data:/data
     networks:
       - traefik_net
