@@ -23,7 +23,8 @@ if (getenv('DRUPAL_DB_HOST')) {
     'port' => getenv('DRUPAL_DB_PORT') ?: '5432',
     'driver' => 'pgsql',
     'prefix' => '',
-    'collation' => 'utf8mb4_general_ci',
+    'namespace' => 'Drupal\\pgsql\\Driver\\Database\\pgsql',
+    'autoload' => 'core/modules/pgsql/src/Driver/Database/pgsql/',
   ];
 }
 
