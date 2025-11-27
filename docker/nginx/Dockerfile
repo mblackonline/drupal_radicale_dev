@@ -18,7 +18,8 @@ WORKDIR /build
 COPY ./web/composer.json ./web/composer.lock* ./
 
 # Install dependencies (no dev, optimized autoloader)
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
+# Ignore platform reqs since we only need static files, not PHP extensions
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts --ignore-platform-reqs
 
 # Copy the rest of the application
 COPY ./web .
