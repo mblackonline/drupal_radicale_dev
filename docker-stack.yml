@@ -114,11 +114,15 @@ services:
 
   # ===========================================================================
   # Nginx Web Server (serves Drupal)
+  # Static files baked into image, only user uploads shared via volume
   # ===========================================================================
   nginx:
-    image: nginx:alpine
+    image: ${REGISTRY:-}drupal-nginx:${VERSION:-latest}
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
     volumes:
-      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      # Only user uploads need to be shared - static assets are in the image
       - drupal_files:/var/www/html/web/sites/default/files:ro
     networks:
       - internal
@@ -143,7 +147,7 @@ services:
         - "traefik.http.services.drupal.loadbalancer.server.port=80"
         - "traefik.docker.network=traefik_net"
     healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://localhost/robots.txt"]
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost/nginx-health"]
       interval: 30s
       timeout: 10s
       retries: 3

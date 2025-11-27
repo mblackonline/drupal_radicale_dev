@@ -1,33 +1,75 @@
-# Drupal 11 with PHP 8.3 FPM
-# Optimized for Docker Swarm deployment with PostgreSQL
+# =============================================================================
+# Drupal PHP-FPM Image
+# Multi-stage build for production deployment
+# =============================================================================
 
-FROM php:8.3-fpm-alpine
+# -----------------------------------------------------------------------------
+# Stage 1: Build dependencies
+# -----------------------------------------------------------------------------
+FROM php:8.3-fpm-alpine AS builder
 
-# Install system dependencies
+# Install build dependencies
 RUN apk add --no-cache \
-    # Required for GD
-    freetype-dev \
-    libjpeg-turbo-dev \
-    libpng-dev \
-    libwebp-dev \
-    # Required for intl
-    icu-dev \
-    # Required for PostgreSQL
-    postgresql-dev \
-    postgresql-client \
-    # Required for zip
-    libzip-dev \
-    # Required for curl (CalDAV requests)
-    curl-dev \
-    # General utilities
     git \
     unzip \
+    # Required for some composer packages
+    $PHPIZE_DEPS
+
+# Install Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Set working directory
+WORKDIR /build
+
+# Copy composer files first for better layer caching
+COPY ./web/composer.json ./web/composer.lock* ./
+
+# Install dependencies (no dev, optimized autoloader)
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
+
+# Copy the rest of the application
+COPY ./web .
+
+# Run post-install scripts now that all files are present
+RUN composer dump-autoload --optimize
+
+# -----------------------------------------------------------------------------
+# Stage 2: Production PHP-FPM image
+# -----------------------------------------------------------------------------
+FROM php:8.3-fpm-alpine AS production
+
+# Install runtime dependencies only
+RUN apk add --no-cache \
+    # Required for GD
+    freetype \
+    libjpeg-turbo \
+    libpng \
+    libwebp \
+    # Required for intl
+    icu-libs \
+    # Required for PostgreSQL
+    postgresql-libs \
+    postgresql-client \
+    # Required for zip
+    libzip \
+    # Required for curl
+    libcurl \
+    # General utilities
     bash \
     # Required for healthcheck
     fcgi
 
-# Configure and install PHP extensions
-RUN docker-php-ext-configure gd \
+# Install build deps, compile extensions, then remove build deps
+RUN apk add --no-cache --virtual .build-deps \
+        freetype-dev \
+        libjpeg-turbo-dev \
+        libpng-dev \
+        libwebp-dev \
+        icu-dev \
+        postgresql-dev \
+        libzip-dev \
+        curl-dev \
+    && docker-php-ext-configure gd \
         --with-freetype \
         --with-jpeg \
         --with-webp \
@@ -40,10 +82,8 @@ RUN docker-php-ext-configure gd \
         zip \
         bcmath \
         exif \
-        curl
-
-# Install Composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+        curl \
+    && apk del .build-deps
 
 # Configure PHP for production
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
@@ -79,20 +119,17 @@ RUN { \
 # Set working directory
 WORKDIR /var/www/html
 
-# Copy application code
-COPY ./web /var/www/html
+# Copy built application from builder stage
+COPY --from=builder /build /var/www/html
 
-# Copy Docker-specific files
+# Copy Docker-specific configuration
 COPY ./docker/drupal/settings.docker.php /var/www/html/docker/drupal/settings.docker.php
 COPY ./docker/drupal/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
 # Make entrypoint executable
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-# Install Composer dependencies
-RUN composer install --no-dev --optimize-autoloader --no-interaction
-
-# Create required directories with correct permissions
+# Create required directories
 RUN mkdir -p /var/www/html/web/sites/default/files \
     && mkdir -p /var/www/html/web/sites/default/private \
     && chmod 755 /var/www/html/web/sites/default/files \
@@ -104,10 +141,10 @@ RUN if [ -f /var/www/html/web/sites/default/default.settings.php ] && [ ! -f /va
     fi \
     && chmod 644 /var/www/html/web/sites/default/settings.php 2>/dev/null || true
 
-# Set ownership for www-data (PHP-FPM user in Alpine)
+# Set ownership
 RUN chown -R www-data:www-data /var/www/html
 
-# PHP-FPM healthcheck
+# Healthcheck
 HEALTHCHECK --interval=30s --timeout=3s --start-period=60s --retries=3 \
     CMD SCRIPT_NAME=/ping SCRIPT_FILENAME=/ping REQUEST_METHOD=GET cgi-fcgi -bind -connect 127.0.0.1:9000 || exit 1
 
