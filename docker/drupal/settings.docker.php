@@ -51,8 +51,15 @@ $settings['file_private_path'] = 'sites/default/private';
 // $config['system.performance']['js']['preprocess'] = FALSE;
 
 // Reverse proxy settings for Traefik.
+// Trust Docker Swarm overlay network ranges
 $settings['reverse_proxy'] = TRUE;
-$settings['reverse_proxy_addresses'] = ['127.0.0.1', '::1'];
+$settings['reverse_proxy_addresses'] = [
+  '127.0.0.1',
+  '::1',
+  '10.0.0.0/8',      // Docker networks
+  '172.16.0.0/12',   // Docker networks
+  '192.168.0.0/16',  // Docker networks
+];
 $settings['reverse_proxy_trusted_headers'] = 
   \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_FOR |
   \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_HOST |
